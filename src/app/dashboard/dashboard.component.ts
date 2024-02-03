@@ -1,4 +1,4 @@
-import { TherapistSales } from './../model/therapistSales';
+import { TherapistSales} from './../model/therapistSales';
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { UserStoreService } from '../service/user-store.service';
 import { AuthService } from '../service/auth.service';
@@ -8,10 +8,10 @@ import { single } from './data';
 import { BaseChartDirective } from 'ng2-charts';
 import { PassvalueService } from '../service/passvalue.service';
 import { AppService } from '../app.service';
-
-
-
-
+import { BranchService } from '../service/branch.service';
+import { Branch } from '../model/branch';
+import { TherapistTotalSales } from '../model/therapisttotalsales';
+import { Users } from '../model/users';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,14 +26,8 @@ export class DashboardComponent implements OnInit,AfterViewInit{
   therapistSalesDto:TherapistSales[]=[];
 
   dashData : TherapistSales[] =  []
-  // showXAxis = true;
-  // showYAxis = true;
-  // gradient = false;
-  // showLegend = true;
-  // showXAxisLabel = true;
-  // xAxisLabel = 'Therapist';
-  // showYAxisLabel = true;
-  // yAxisLabel = 'TotalSales';
+
+ 
   single: any[];
   multi: any[];
 
@@ -53,9 +47,15 @@ export class DashboardComponent implements OnInit,AfterViewInit{
     
   };
   formHeader:string=""
+  branchDto: Branch[];
+  branchId: number;
+  currentUser: Users;
+  dashDto: TherapistTotalSales[];
+  totalSalesDto : TherapistTotalSales[] =  []
   constructor(private userStore: UserStoreService,private auth: AuthService,
    private customerService: CustomerService, private dashboardService: DashboardService, private passService: PassvalueService, private appService: AppService,
-   private ref: ChangeDetectorRef, private passValue: PassvalueService ){
+   private ref: ChangeDetectorRef, private passValue: PassvalueService,private branchService:BranchService )
+  {
     
     
 
@@ -78,27 +78,33 @@ export class DashboardComponent implements OnInit,AfterViewInit{
 
 
   ngOnInit(): void {
-   
-    // this.passService.setformHeader('Dashboard')
+    this.getName();
+    this.loadMasterDatas();
+    
+  }
+  loadMasterDatas()
+  {
+    this.auth.userDetail$.subscribe(x=>{
+      this.currentUser = x
+    })
+    
+    this.branchService.getBranchByUsername(this.fullName).subscribe(x=>{
+      this.branchDto = x; 
+      
+    })
+
     this.dashboardService.getTherapistSales().subscribe(res=>
       {
         this.therapistSalesDto = res;
         this.dashData = res;
-
-        //Object.assign(single, res)
-
-
-        //console.log(res)
-        //console.log(single)
       }
     );
-    this.getName();
-
-
+    this.dashboardService.getTherapistSalesByBranch().subscribe(x=>{this.totalSalesDto = x; this.dashDto = this.totalSalesDto})
   }
   onSelect(event) {
     //console.log(event);
   }
+
 
 
 

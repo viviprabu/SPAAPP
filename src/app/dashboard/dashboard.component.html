@@ -43,10 +43,10 @@
           (select)="onSelect($event)">
         </ngx-charts-bar-vertical>
         </div>
-        <div class="col-6">
+        <div class="col-6"  #containerRef>
           <ngx-charts-bar-vertical
           [view]="[containerRef.offsetWidth,400]"
-          [results]="dashData"
+          [results]="dashDto"
           [gradient]="gradient"
           [xAxis]="showXAxis"
           [yAxis]="showYAxis"

@@ -1,0 +1,73 @@
+.navbar-top{
+    background-color: whitesmoke;
+
+}
+html, body {
+    height: calc(100% - 7.5px);
+  }
+a{
+    font-family: 'Segoe UI';
+    font-size: medium;
+    font-weight: bold;    
+  }
+
+.button:hover{
+    background-color:#87a6fc;
+    transition: 0.7s;
+}
+.div{
+    background-color: #e4f2f1;
+    border-color: #e4f2f1;
+    border:0px;
+    
+}
+.toolbar{
+    background-color: #e4f2f1;
+    color:rgb(80, 3, 76);
+    border:0;
+}
+.navbar-top{
+    background-color: #e4f2f1;
+}
+.button
+{
+    background-color: rgb(165, 198, 248);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:small;
+}
+.input{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:small;
+}
+.btn:hover{
+    background-color: rgb(165, 198, 248);
+  }
+.btn-primary{
+    background-color: #4d7bf9 !important
+}
+.btn-secondary{
+    background-color: rgb(181, 180, 180) !important;
+    
+}
+.btn-success{
+    background-color: rgb(4, 101, 43) !important;   
+    
+}
+.btn-warning{
+    background-color: rgb(240, 193, 3) !important
+}
+.btn-dark{
+    background-color: rgb(69, 68, 67) !important
+}
+.btn-light{
+    background-color:whitesmoke !important
+}
+.btn-danger{
+    background-color: rgb(243, 83, 128) !important
+}
+.btn-info{
+    background-color: rgb(131, 192, 198) !important
+}
+.bg-dark{
+    background-color: rgb(69, 68, 67) !important
+}

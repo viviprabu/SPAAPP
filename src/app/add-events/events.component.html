@@ -117,16 +117,16 @@
                             <hr>
                             <div class="row">
                              
-                                <!-- <div class="input-group flex-nowrap"  [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')">
-                                  <select class="form-control input" formControlName="therapistId" name="therapistId" (change)="ChooseTherapist($event)">
+                                <div class="input-group flex-nowrap"  [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')">
+                                  <select class="form-control input" formControlName="therapistId" name="therapistId" >
                                     <option selected>---Select any Therapist---</option>
-                                    <option [value]="tpr.id"  *ngFor="let tpr of therapistDto"  >{{tpr.name}}</option>
+                                    <option  [value]="tpr.id"  *ngFor="let tpr of therapistDto; let i = index" (change)="ChooseTherapist($event,tpr)" >{{tpr.name}}</option>
                                   </select>
                                   <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
-                                </div> -->
-                                <div class="input-group flex-wrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')" >
+                                </div>
+                                <!-- <div class="input-group flex-wrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')" > -->
                                   <!-- <span class="input-group-text" id="addon-wrapping" style="width:100px;background-color: rgb(212, 210, 210);">Therapist</span>&nbsp;                           -->
-                                  <div class="btn-group" role="group"  aria-label="Basic radio toggle button group" *ngFor="let row of therapistDto; let i=index">
+                                  <!-- <div class="btn-group" role="group"  aria-label="Basic radio toggle button group" *ngFor="let row of therapistDto; let i=index">
                                     <input type="radio" class="btn-check"  id="btnradio1{{row.id}}" name="therapistId" autocomplete="off" (checked)="row.id" [value]="row.id" (change)="ChooseTherapist($event,row)">&nbsp;
                                     <label class="btn btn-outline-danger" for="btnradio1{{row.id}}">{{row.name}}</label>                              
                                    
@@ -134,7 +134,7 @@
                                   <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
                                  
                                  
-                                </div>
+                                </div> -->
                                
                               </div>
                            
