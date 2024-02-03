@@ -1,0 +1,51 @@
+<!-- <button class="btn btn-primary">click me</button> -->
+<div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+        <div class="panel border bg-white">
+          <!-- <div class="panel heading"> -->
+            <h3 class="pt-3 font-weight-bold"  style="text-align: center;font-weight: bolder; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> Password Reset</h3>
+            <div class="panel-body p-3">
+              <form [formGroup]="resetFormGroup">
+                <div class="form-group pt-3">
+                    <div class="input-field" [class.error]="onSubmit && resetFormGroup.hasError('required','newPassword')">
+                      <span class="fa fa-lock p-2"></span>
+                          <input id="newpassword" [type]="password" formControlName="newPassword" placeholder="New Password">
+
+                    </div>
+                </div>
+                <small *ngIf="onSubmit && resetFormGroup.hasError('required','newPassword')" class="text-danger">*New Password is Required</small>
+                <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="onSubmit && resetFormGroup.hasError('required','confirmPassword')">
+                      <span class="fa fa-lock p-2"></span>
+                      <input [type]="password" formControlName="confirmPassword" placeholder="confirmPassword">
+                      <span *ngIf="!show" (click)="onClick()">
+                        <i class="fa-regular fa-eye" ></i>
+                      </span>
+                      <span *ngIf="show" (click)="onClick()">
+                        <i  class="fa-regular fa-eye-slash" ></i>
+                      </span>
+                  </div>
+              </div>
+              <small *ngIf="onSubmit && resetFormGroup.hasError('required','confirmPassword')" class="text-danger">*Confirm Password is Required</small>
+              <small *ngIf="resetFormGroup.hasError('ConfirmPasswordValidator','confirmPassword')" class="text-danger">*Password doesn't match</small>
+
+              <!-- <div class="form-inline fr mt-4 text-end">
+                <a id="forget" data-bs-toggle="modal" data-bs-target="#exampleModal" class="font-weight-bold">Forget Password?</a>
+              </div> -->
+              <button (click)="resetPassword()" type="submit" class="btn btn-secondary btn-block mt-4 w-100">Change Password</button>
+              <!-- <div class="text-center pt-4 text-muted">Dont have account?<a id="forget" routerLink="/signup">sign up</a></div> -->
+
+              </form>
+            </div>
+
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

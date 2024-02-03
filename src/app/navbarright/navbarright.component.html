@@ -1,0 +1,137 @@
+<nav class="navbar navbar-expand-lg navbar-light navbar-top " >
+  <div class="container-fluid">
+    <button class="btn hide-button" (click)="openHide()"><i class="fa-solid fa-list"></i></button>
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <button class="btn btn-outline-danger"><i class="fa-solid fa-list"></i></button> -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="card" style="align-content: center;">
+          <li class="nav-item">
+            <!-- <button class="bg-secondary a">&nbsp;&nbsp;{{formHeader}}</button> -->
+            <!-- <a class="nav-link active a" aria-current="page">{{formHeader}}</a> -->
+        </li>
+        </div>
+        <li class="nav-item">
+          <a class="nav-link" tabindex="-1">{{formHeader}}</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>-->
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Branch: {{branchName}}</a>
+        </li> -->
+        <!-- <li class="nav-item"> -->
+        <!-- <div class="btn-group"  role="group" aria-label="Basic radio toggle button group"  *ngFor="let row of brDto;let i = index" >                                  
+          <input type="checkbox" class="btn-check text-center" name="btnBranch1" id="{{row.id}}" autocomplete="off"  value="{{row.id}}" [checked]="isChecked(row.id)" (change)="checkBoxChange($event,row,i)">
+          <label class="btn btn-outline-primary btn-sm" for="{{row.id}}">{{row.name}}</label>
+     </div> -->
+    <!-- </li> -->
+      </ul>
+    
+      <!-- <div class="btn-group dropstart" >
+        <button type="button" class="btn button-branch" id="branchDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-city"></i>
+        </button>
+        <ul class="dropdown-menu" id="branchDropDown">
+          
+          <div class="form-check check" id="flexCheckDefault" style="margin-left: 5px;border:2px" *ngFor="let row of brDto;let i=index">
+            &nbsp;
+              <input class="form-check-input"  type="checkbox" [checked]="isChecked(row.id)" (change)="checkBoxChange($event,row,i)" [value]="row.id"  id="flexCheckDefault">
+              {{row.name}}
+            </div>
+        </ul>
+      </div> -->
+      <!-- <label class="btn-sm" style="font-family: 'Segoe UI'; font-size:medium">Branch:</label>&nbsp;     -->
+                    
+     
+     &nbsp;
+
+
+      <!-- <div  class="card dropdown-header-item">
+        <button class="btn dropdown-header-item button-branch" type="button" data-bs-target="#collapseExample" (change)="selectBranch($event)">
+         <i class="fa-solid fa-city"></i>&nbsp;&nbsp;Branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <span *ngIf="!isShow">
+             <i class="fa-thin fa-less-than"></i>
+           </span>
+           <span *ngIf="isShow">
+             <i class="fa-solid fa-circle-chevron-down"></i>
+           </span>
+         </button>          
+     <div [ngClass]="elementName=='collapseExample' && isShow ? 'collapse.show': 'collapse'" id="collapseExample">
+       <div class="card table-background">
+         <table class="table-background">
+           <thead>
+             <tr style="height: 75px;">
+               <div class="form-check check" id="collapseExample" style="margin-left: 5px;border:2px" *ngFor="let row of brDto;let i=index">
+                 &nbsp;
+                   <input class="form-check-input"  type="checkbox" [checked]="isChecked(row.id)" (change)="checkBoxChange($event,row,i)" [value]="row.id"  id="flexCheckDefault">
+                   {{row.name}}
+                 </div>                      
+           </thead>
+         </table>
+       </div>
+     </div>
+     </div> -->
+     <!-- <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group" *ngFor="let row of branchList; let i=index">
+      <input type="checkbox" class="btn-check" id="{{row.id}}" autocomplete="off">
+      <label class="btn btn-outline-primary" for="{{row.id}}">{{row.name}}</label>
+      </div> -->
+ 
+      <div class="card" style="background-color: whitesmoke;height:50px;width:250px;border:0" *ngIf="auth.userDetail$ | async as user">
+        <div class="row">
+          <div class="col-12">
+            <p style="margin-left: 10px; font-family: 'Segoe UI'; text-align: right; margin-right: 50px; font-size: medium;"><i class="fa-solid fa-circle-user"></i>&nbsp;{{user.firstName}} | &nbsp;<i class="fa-solid fa-circle-check"></i>&nbsp;{{roleName}}</p>              
+            <p>{{currencyName}}</p>  
+          </div>
+
+          <!-- <div class="col-6"> -->
+            <!-- <p style="margin-left: 10px; font-family: 'Segoe UI'; "><i class="fa-solid fa-circle-check"></i>&nbsp;{{role}}</p>  -->
+            <!-- <p style="margin-left: 10px; font-family: 'Segoe UI'; font-size: x-small;"  *ngFor="let item of allowedBranches"><i class="fa-solid fa-house-circle-check"></i>&nbsp;{{item.name}}</p>  -->
+          <!-- </div> -->
+        </div>
+      </div>
+       
+        
+        
+        <div class="d-flex" style="position: absolute;right:0;">
+          <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+          <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+          <div class="dropstart">
+            <button type="btn" class="btn button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <!-- <i class="fa-solid fa-user-tie"></i> -->
+              <!-- <img class="button"
+          width="20%"
+          alt=""
+          src="https://t3.ftcdn.net/jpg/02/00/90/24/360_F_200902415_G4eZ9Ok3Ypd4SZZKjc8nqJyFVp1eOD6V.jpg"  /> -->
+            </button>
+            <ul class="dropdown-menu" id="userDropdown">
+              <table>
+                <tr><button class="btn btn_dropdown"><i class="fa-solid fa-user"></i>&nbsp;&nbsp;{{currentUser.firstName}} {{currentUser.lastName}}</button></tr>
+                <tr><button class="btn btn_dropdown"><i class="fa-solid fa-key"></i>&nbsp;&nbsp;{{roleName}}</button></tr>
+                <tr><button class="btn btn_dropdown"><i class="fa-solid fa-address-book"></i>&nbsp;&nbsp;{{currentUser.address}}</button></tr>
+                <tr><button class="btn btn_dropdown"><i class="fa-solid fa-city"></i>&nbsp;&nbsp;{{currentUser.city}}</button></tr>
+                <tr><button class="btn btn_dropdown"><i class="fa-solid fa-phone-volume"></i>&nbsp;&nbsp;{{currentUser.phone}}</button></tr>
+                <tr><button class="btn btn_dropdown"><i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;{{currentUser.email}}</button></tr>
+                
+                <tr>
+                 
+                </tr>
+                <tr>
+                  <!-- <div class="card-footer" style="background-color: whitesmoke; text-align: left;border:1px;border-color: grey;"> -->
+                  <button class="btn btn_dropdown" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Logout</button>
+                <!-- </div> -->
+                </tr>
+              </table>
+            </ul>
+          </div>
+  
+          <!-- <script src="https://unpkg.com/@popperjs/core@2"></script> -->
+        </div>
+      
+      
+    </div>
+  </div>
+</nav>

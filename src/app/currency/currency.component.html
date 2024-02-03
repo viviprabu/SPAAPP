@@ -1,0 +1,150 @@
+<div class="row" >
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNew()"><i class="fa-solid fa-plus"></i>&nbsp;</button>
+        <button class="btn btn-warning" (click)="deleteRows()"><i class="fa-solid fa-trash"></i></button>
+      </div>
+      
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="input-group flex-nowrap"  >
+          <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Search</span>
+          <input type="search" class="form-control"  [(ngModel)]="searchTerm"  aria-label="BranchName" aria-describedby="addon-wrapping">
+          <button type="button" class="btn button"></button>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLable"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLable"><span style="font-size: 25px;font-weight: 500;">Add Currency</span></p>  
+        <button type="button" class="btn btn-close" id="closeModal" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="close" style="position: absolute; right:0;margin-right: 2px;"></button>            
+        <!-- <button type="button" class="button-close" data-bs-dismiss="modal" aria-label="close"></button> -->
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <form class="form-control" [formGroup]="CurrencyFormGroup" (ngSubmit)="saveCurrency()">
+            <div class="row">
+              <div class="col-6">
+                <div class="input-group flex-nowrap" [class.error]="isSubmit && CurrencyFormGroup.hasError('required','name')" >
+                  <span class="input-group-text" id="addon-wrapping" style="width: 125px;background-color: rgb(212, 210, 210);">Name</span>
+                  <input type="text" class="form-control" formControlName="name" placeholder="name"  aria-label="name" aria-describedby="addon-wrapping">
+                  
+                  
+                </div>
+                <small class="text-danger small" *ngIf="isSubmit && CurrencyFormGroup.hasError('required','name')">*Name is Required</small>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="isSubmit && CurrencyFormGroup.hasError('required','currencyCode')" >
+                  <span class="input-group-text" id="addon-wrapping" style="width: 125px;background-color: rgb(212, 210, 210);">Currency Code</span>
+                  <input type="text" class="form-control" formControlName="currencyCode" placeholder="currencyCode"  aria-label="currencyCode" aria-describedby="addon-wrapping">
+                  
+                  
+                </div>
+                <small class="text-danger small" *ngIf="isSubmit && CurrencyFormGroup.hasError('required','currencyCode')">*Code is Required</small>
+              </div>
+              <div class="col-6">
+                
+
+                <div class="input-group flex-nowrap" [class.error]="isSubmit && CurrencyFormGroup.hasError('required','conversionRate')" >
+                  <span class="input-group-text" id="addon-wrapping" style="width: 125px;background-color: rgb(212, 210, 210);">Conversion</span>
+                  <input type="text" class="form-control" formControlName="conversionRate" placeholder="conversionRate"  aria-label="conversionRate" aria-describedby="addon-wrapping">
+                  
+                </div>
+                <small class="text-danger small" *ngIf="isSubmit && CurrencyFormGroup.hasError('required','conversionRate')">*Rate is Required</small>
+              </div>
+            </div>           
+          </form>
+         </div>
+         <br>
+         <div class="row div-back">
+          <div class="col-6">
+            <div class="example-button-container">
+              <div class="form-check">
+                <!-- <input class="form-check-input input" type="checkbox" formControlName="isActive"  id="flexCheckChecked" [checked]="isChecked">
+                <label class="form-check-label" for="flexCheckChecked" > -->
+                  
+                <!-- </label> -->
+              </div>
+          </div>
+          </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="!isModify" class="btn btn-primary " (click)="saveCurrency()">Save</button>&nbsp;
+        <!-- <button type="button" *ngIf="!isModify" class="btn btn-danger " id="closeModal" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="close()">Close</button>&nbsp; -->
+        <button type="button"  *ngIf="isModify" class="btn btn-warning " (click)="modifyCurrency()">Modify</button>&nbsp;
+        <button type="button" *ngIf="isModify" class="btn btn-danger " (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+   
+  </div>
+ 
+
+</div>
+
+<div class="card" style="height: 25px; border:0;background-color: #e4f2f1;;"></div>
+
+  <div class="card" style="border:0;height:100%">
+  <div class="card-body div-table">
+    <div class="alert alert-info table" *ngIf="CurrencyDto.length==0">
+      No Records Found!!!
+    </div>
+    <div class="table-responsive">
+     <table class="table table-hover table-sm" *ngIf="CurrencyDto.length>0">
+      <thead class="table-primary">
+        <tr>
+          <th><input type="checkbox" id="countryCheck" name="countryCheck" (change)="check($event)" [checked]="isCheckedMap"></th>
+          <th>#</th>
+          <th>Name</th>
+          <th>Conversion Rate</th>
+          <th>Currency Code</th>
+          <!-- <th>Active</th> -->
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of currencyPageDto | filter:searchTerm; let i = index">
+          <td><input type="checkbox" id="countryCheck" name="countryCheck" [checked]="isCheckedMap"></td>
+          <td>{{i+1}}</td>
+          <td>{{row.name}}</td>
+          <td>{{row.conversionRate}}</td>
+          <td>{{row.currencyCode}}</td>
+          <!-- <td>{{row.isActive}}</td> -->
+          <td class="text-end">
+            <button type="button" class="btn btn-info text-white btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="getRecords(row)"><i class="fa-solid fa-user-pen"></i></button>
+           <!-- &nbsp;<button type="button" class="btn btn-danger btn-circle" (click)="deletePayment(row)"><i class="fa-solid fa-trash"></i></button> -->
+          </td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination  [collectionSize]="CurrencyDto.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshPages()">           
+      </ngb-pagination>
+      <select class="form-select" style="width:auto;" [(ngModel)]="pageSize" (ngModelChange)="refreshPages()" >
+        <option [ngValue]="5">5 records per page</option>
+        <option [ngValue]="10">10 items per page</option>
+        <option [ngValue]="15">15 items per page</option>
+        <option [ngValue]="20">20 items per page</option>
+        <option [ngValue]="25">25 items per page</option>
+      </select>
+    </div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+<div class="card back">
+    <div class="card-body">
+        <div class="row">
+                
+                <div class="col-3 back"  *ngFor="let row of branchDto; let i=index">
+                    <!-- <app-branchlist></app-branchlist> -->
+                    <div class="card text-center">
+                        <table class="table">
+                            <thead class="table">
+                                <tr>
+                                    <th style="font-family: 'Segoe UI'; font-weight: bold;font-size:x-large;">
+                                        {{row.name}}</th>
+                                    
+                                </tr>
+                                <div class="card" style="width:100%"></div>
+                            </thead>
+                        </table>
+                        <div class="card-body">
+                            <p style="font-family: 'Segoe UI';color:green;font-weight: bold;">Branch Timing : <br>{{row.openingTime | date:'HH:mm a'}} - {{row.closingTime | date:'HH:mm a'}}</p>
+                            <p class="text-center" style="font-family: 'Segoe UI';font-size:medium">The most common spa treatments are massages, manicures/pedicures and facials.
+                                 However, you might also see offered such treatments as a body scrub/exfoliation, a fingers or toes mini manicure or pedicure
+                                  or a scalp massage. Find out more in our treatment guides.</p>
+                        </div>
+                        <div class="card-footer">
+                        <button type="button" class="btn btn-info" style="align-items: center;width:100%" (click)="getBranchId(row)">Select</button>
+                        </div>
+                    </div>
+                
+                   
+                </div>
+                
+            </div>
+          
+        </div>
+</div>
+
+
+            
+
+
+
+
+
+            <!-- <table class="table">
+                <thead class="table-dark">
+                    <tr *ngFor="let row of branchDto; let i = index" style>
+                        <th>{{row.name}}</th>
+                      </tr>>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+     -->

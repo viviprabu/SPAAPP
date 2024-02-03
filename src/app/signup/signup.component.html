@@ -1,0 +1,130 @@
+<div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-lg-8 col-md-7 offset-lg-2 offset-md-3">
+        <div class="panel border">
+          <!-- <div class="panel heading"> -->
+            <h3 class="pt-3 font-weight-bold"  style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> Login</h3>
+            <div class="panel-body p-3">
+              <form [formGroup]="signFormGroup">
+<!--                 
+                    <div class="form-group pt-3">
+                      <label class="btn-sm" style="font-family: 'Segoe UI'; font-size:medium">Branch:</label>&nbsp;                        
+                      <div class="btn-group"  role="group" aria-label="Basic radio toggle button group"  *ngFor="let row of branchDto" >  
+                        <div class="card"  [class.error]="signFormGroup.hasError('required','userBranches')">                     
+                          <input type="radio" class="btn-check" name="btnBranch" id="{{row.id}}" autocomplete="off"  value="{{row.id}}" (change)="onSelectBranch($event)">
+                          <label class="btn btn-outline-primary btn-sm" for="{{row.id}}">{{row.name}}</label>     
+                        </div>                      
+                     </div>
+                     <small class="text-danger" *ngIf="signFormGroup.controls['userBranches'].dirty && signFormGroup.hasError('required','userBranches')">*Select any branch</small>                   
+                    </div> -->
+                    <div class="row">
+                      <div class="col-6">
+                    <div class="form-group pt-3">                 
+                      <div class="input-field" [class.error]="signFormGroup.controls['firstName'].dirty && signFormGroup.hasError('required','firstName')">
+                          <span class="fa fa-user p-2"></span>
+                            <input  type="text" formControlName="firstName" placeholder="FirstName">                        
+                        <i class="fa-solid fa-person"></i>-<i class="fa-solid fa-person-dress"></i>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                          <input type="radio" class="btn-check" name="btnradio" id="btnmale" autocomplete="off"  value="Male" (change)="onGenderChange($event)">
+                          <label class="btn btn-outline-danger btn-sm" for="btnmale">Male</label>                    
+                          <input type="radio" class="btn-check" name="btnradio" id="btnfemale"  value="Female" autocomplete="off" (change)="onGenderChange($event)">
+                          <label class="btn btn-outline-danger btn-sm" for="btnfemale">Female</label>                                    
+                        </div>
+                      </div>
+                      
+                      
+                  </div>
+                  <small class="text-danger" *ngIf="signFormGroup.controls['firstName'].dirty && signFormGroup.hasError('required','firstName')">*First Name is Required</small>
+                  
+                  <div class="form-group pt-3">
+                    <div class="input-field" [class.error]="signFormGroup.controls['lastName'].dirty && signFormGroup.hasError('required','lastName')">
+                        <span class="fa fa-user p-2"></span>
+                          <input  type="text" formControlName="lastName" placeholder="LastName">
+                    </div>
+                </div>
+                <small class="text-danger" *ngIf="signFormGroup.controls['lastName'].dirty && signFormGroup.hasError('required','lastName')">*Last Name is Required</small>
+    
+                <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signFormGroup.controls['email'].dirty && signFormGroup.hasError('required','email')">
+                      <span class="fa-solid fa-envelope p-2"></span>
+                        <input  type="text" formControlName="email" placeholder="Email">
+                  </div>
+              </div>
+              <small class="text-danger" *ngIf="signFormGroup.controls['email'].dirty && signFormGroup.hasError('required','email')">*Email is Required</small>
+    
+    
+    
+                    <div class="form-group pt-3">
+                        <div class="input-field" [class.error]="signFormGroup.controls['username'].dirty && signFormGroup.hasError('required','username')">
+                            <span class="fa fa-user p-2"></span>
+                              <input id="username" type="text" formControlName="username" placeholder="username">
+                              
+                        </div>
+                       
+                    </div>
+                    <small *ngIf="signFormGroup.controls['username'].dirty && signFormGroup.hasError('required','username')" class="text-danger">*Username is Required</small>
+                  </div>
+                  <div class="col-6">                   
+    
+                  <div class="form-group pt-3">                 
+                    <div class="input-field" [class.error]="signFormGroup.controls['address'].dirty && signFormGroup.hasError('required','address')">
+                        <span class="fa-solid fa-address-book p-2"></span>
+                          <input  type="text" formControlName="address" placeholder="Address">
+                    </div>
+                </div>
+                <small class="text-danger" *ngIf="signFormGroup.controls['address'].dirty && signFormGroup.hasError('required','address')">*Address is Required</small>
+                
+                <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signFormGroup.controls['city'].dirty && signFormGroup.hasError('required','city')">
+                      <span class="fa-solid fa-city p-2"></span>
+                        <input  type="text" formControlName="city" placeholder="City">
+                  </div>
+              </div>
+              <small class="text-danger" *ngIf="signFormGroup.controls['city'].dirty && signFormGroup.hasError('required','city')">*City is Required</small>
+    
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="signFormGroup.controls['phone'].dirty && signFormGroup.hasError('required','phone')">
+                    <span class="fa-solid fa-phone-volume p-2"></span>
+                      <input  type="text" formControlName="phone" placeholder="Phone">
+                </div>
+            </div>
+            <small class="text-danger" *ngIf="signFormGroup.controls['phone'].dirty && signFormGroup.hasError('required','phone')">*Phone is Required</small>
+            <div class="form-group pt-3">
+              <div class="input-field" [class.error]="signFormGroup.controls['password'].dirty && signFormGroup.hasError('required','password')">
+                  <span class="fa fa-lock p-2"></span>
+                  <input [type]="password" formControlName="password" placeholder="password">
+
+                    <span *ngIf="!show" (click)="onClick()">
+                      <i class="fa-regular fa-eye" ></i>
+                    </span>
+                    <span *ngIf="show" (click)="onClick()">
+                      <i  class="fa-regular fa-eye-slash" ></i>
+                    </span>
+          </div>
+
+          </div>               
+          <small *ngIf="signFormGroup.controls['password'].dirty && signFormGroup.hasError('required','password')" class="text-danger">*Password is Required</small>
+    
+                  <div class="form-inline fr mt-4 text-end">
+                    <a id="forget" data-bs-toggle="modal" data-bs-target="#exampleModal" class="font-weight-bold">Forget Password?</a>
+                  </div>
+                  </div>
+                </div>
+
+                
+                
+              <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-signup btn-block mt-4 w-100">Sign Up</button>
+          <div class="text-center pt-4 text-muted">Already have account?<a id="forget" routerLink="/login">Login</a></div>
+
+              </form>
+            </div>
+           
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

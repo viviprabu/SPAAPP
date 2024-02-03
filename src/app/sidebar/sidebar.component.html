@@ -1,0 +1,565 @@
+
+  <!-- Brand Logo -->
+    <div class="card"  style="height: 60px; font-weight: bold;border-radius: 0; font-size:large;color:white; border:0">
+        <div class="toolbar" role="banner" >
+         
+          <img class="image-circle"
+          width="20%"              
+        alt=""
+        
+        src="https://laughingwatersspa.com/wp-content/uploads/2022/12/cropped-laughing-waters-spa-blu.png"  />
+          <span class="span" style="font-family: 'Segoe UI';font-size:x-large;">{{companyName}}</span>
+        <div class="spacer"></div>
+        </div>
+      </div>
+      <!--src="https://us.123rf.com/450wm/dedegrphc/dedegrphc2003/dedegrphc200304632/142960588-spa-logo-vector-illustration-design-template.jpg?ver=6"  /> -->
+      
+    <ng-template  [ngIf]="role == 'Admin' || role == 'Manager'">
+      <div class="card">
+        <!-- <button class="btn" [routerLink]="['/dashboard']" routerLinkActive="router-link-active"  style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fa-brands fa-pix fa-beat"></i>&nbsp;&nbsp;Dashboard</button> -->
+        <button class="btn dashboard" (click)="openClose($event)" type="button"   data-bs-toggle="collapse" data-bs-target="#collapsex">
+          <i class="fa-solid fa-chart-simple"></i>&nbsp;&nbsp;Dashboard
+        </button>
+      </div>
+    </ng-template>
+    
+      <!-- background-color: #343a40; -->
+    <!-- Sidebar -->
+     <ng-template  [ngIf]="role == 'Admin' || role == 'Manager'" >      
+        <div  class="card dropdown-header-item" style="border-radius: 0px;border:0px; overflow-y: auto;">
+          
+            <button class="btn dropdown-header-item" type="button" data-bs-target="#collapseExample" (click)="openMaster($event)"  >
+              <span *ngIf="!isMaster">
+                  <!-- <i class="fa-thin fa-greater-than"></i> -->
+                  <!-- <i class="fa-solid fa-chevron-right"></i> -->
+                <i class="fa-solid fa-circle-chevron-right"></i>
+              </span>
+              <span *ngIf="isMaster">
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </span>  Master
+              </button>
+          <div [ngClass]="elementName=='collapseExample' && isMaster ? 'collapse.show': 'collapse'" id="collapseExample">
+            <div class="card table-background">
+              <table class="table-background">
+                <thead>
+                  <tr >    
+                    <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/currency']" style="height: 50px;" >
+                      <button class="btn"  name="Currency"><i class="fa-solid fa-spa"></i>&nbsp;&nbsp;Currency</button>
+                    </div>
+                  </tr>
+                  <tr>    
+                    <div class="card background" (click)="getButtonName($event)" [routerLink]="['/country']" style="height: 50px;">
+                      <button class="btn" name="Country" ><i class="fa-solid fa-earth-americas"></i>&nbsp;&nbsp;Country</button>
+                    </div>
+                  </tr>
+
+                    <tr>
+                      <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/company']" style="height: 50px;">
+                        <button class="btn" name="Currency"><i class="fa-solid fa-building"></i>&nbsp;&nbsp;Company</button>
+                      </div>
+                   </tr> 
+                   <tr>
+                    <div class="card background" (click)="getButtonName($event)" [routerLink]="['/branch']" style="height: 50px;">
+                      <button class="btn" name="Branch" ><i class="fa-solid fa-city"></i>&nbsp;&nbsp;Branch</button>
+                      </div>
+                      </tr>
+
+                      <tr>
+                        <div class="card background" (click)="getButtonName($event)" [routerLink]="['/payment']" style="height: 50px;">
+                          <button class="btn"  name="Payment" ><i class="fa-solid fa-money-bill"></i>&nbsp;&nbsp;Payment</button>
+                        </div>
+                      </tr>
+                    <!-- <th><button class="btn" name="Customer" (click)="getButtonName($event)"  [routerLink]="['/customer']"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Clients</button></th> -->
+                   
+                    <tr>
+                      <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/slottime']" style="height: 50px;">
+                        <button class="btn" name="Therapist"><i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Slot Timings</button>
+                        </div>
+                        </tr>
+                        <tr>
+                          <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/therapist']" style="height: 50px;">
+                            <button class="btn" name="Therapist"><i class="fa-solid fa-spa"></i>&nbsp;&nbsp;Therapist</button>
+                          </div>
+                          </tr>
+                  
+                          <tr>
+                            <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/shift']" style="height: 50px;">
+                              <button class="btn" name="Shift"><i class="fa-solid fa-stopwatch-20"></i>&nbsp;&nbsp;Shift Time</button>
+                            </div>  
+                          </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          
+        
+        <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse1" (click)="openServices($event)" >
+          <span *ngIf="!isService">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+          </span>
+          <span *ngIf="isService">
+            <i class="fa-solid fa-circle-chevron-down"></i>
+          </span>  Services
+        </button>
+  
+    <div [ngClass]="elementName=='collapse1' && isService ? 'collapse.show': 'collapse'" id="collapse1">
+      <div class="card table-background">
+        <table class="table-background">
+          <thead>
+            <tr>
+              <div class="card background" (click)="getButtonName($event)" [routerLink]="['/services']" style="height: 50px;">
+              <button class="btn" name="Services"><i class="fa-solid fa-hand-sparkles"></i>&nbsp;&nbsp;Service</button>
+            </div>
+            </tr>
+            
+            <tr>
+  
+            </tr>
+          </thead>
+        </table>
+        
+      </div>
+    </div>
+      
+      <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse2" (click)="openTransaction($event)">
+      
+        <span *ngIf="!isTransaction">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </span>
+        <span *ngIf="isTransaction">
+          <i class="fa-solid fa-circle-chevron-down"></i>
+        </span>  Invoice
+      </button>
+  
+    <div [ngClass]="elementName=='collapse2' && isTransaction ? 'collapse.show': 'collapse'" id="collapse2">
+    <div class="card">
+      <table class="table-background">
+        <thead>
+          <tr>       
+            <div class="card background" (click)="getButtonName($event)" [routerLink]="['/transaction']" style="height: 50px;">
+          <button class="btn" name="Transactions"><i class="fa-brands fa-stack-overflow"></i>&nbsp;&nbsp;Invoices</button>
+        </div>
+      </tr>
+        </thead>
+      </table>
+     
+    </div>
+    </div>
+    <button class="btn dropdown-header-item" type="button" data-bs-target="#collapse3" (click)="openUsers($event)">
+      <span *ngIf="!isUser">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+      </span>
+      <span *ngIf="isUser">
+        <i class="fa-solid fa-circle-chevron-down"></i>
+      </span>  Users
+    </button>
+  
+    <div [ngClass]="elementName=='collapse3' && isUser ? 'collapse.show': 'collapse'"  id="collapse3">
+    <div class="card">
+      <table class="table-background">
+        <thead>
+          <tr>
+            <div class="card background" (click)="getButtonName($event)" [routerLink]="['/user']" style="height: 50px;">
+             <button class="btn" name="Users"><i class="fa-solid fa-circle-user"></i>&nbsp;&nbsp;Users</button>
+            </div>          
+        </tr>
+        <tr>
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/role']" style="height: 50px;">
+            <button class="btn" name="Roles"><i class="fa-solid fa-person-circle-check"></i>&nbsp;&nbsp;Roles</button>
+          </div>
+        </tr>
+        </thead>
+      </table>
+      
+      
+    </div>
+    </div>
+
+    <button class="btn dropdown-header-item" type="button" data-bs-target="#collapse4" (click)="openSchedule($event)">
+     
+        <span *ngIf="!isEvent">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </span>
+        <span *ngIf="isEvent">
+          <i class="fa-solid fa-circle-chevron-down"></i>
+        </span>  Bookings
+      </button>
+    <div [ngClass]="elementName=='collapse4' && isEvent ? 'collapse.show': 'collapse'"  id="collapse4">
+      <div class="card">
+        <table class="table-background">
+          <thead>            
+            
+              <tr>
+                <div class="card background" (click)="getButtonName($event)" [routerLink]="['/booking-schedule']" style="height: 50px;">
+                  <button class="btn" name="Booking" ><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;Schedule </button>
+                </div>
+              </tr>
+            </thead>
+        </table>
+      </div>
+      </div>
+
+      
+      </div>
+    </ng-template>
+
+    <ng-template  [ngIf]="role == 'User'">      
+      <div  class="card dropdown-header-item" style="border-radius: 0px;border:0px; overflow-y: auto;">
+        
+          <button class="btn dropdown-header-item" type="button" data-bs-target="#collapseExample" (click)="openMaster($event)"  >
+            <span *ngIf="!isMaster">
+                <!-- <i class="fa-thin fa-greater-than"></i> -->
+                <!-- <i class="fa-solid fa-chevron-right"></i> -->
+              <i class="fa-solid fa-circle-chevron-right"></i>
+            </span>
+            <span *ngIf="isMaster">
+              <i class="fa-solid fa-circle-chevron-down"></i>
+            </span>  Master
+            </button>
+        <div [ngClass]="elementName=='collapseExample' && isMaster ? 'collapse.show': 'collapse'" id="collapseExample">
+          <div class="card table-background">
+            <table class="table-background">
+              <thead>
+                <tr >    
+                  <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/currency']" style="height: 50px;" >
+                    <button class="btn"  name="Currency"><i class="fa-solid fa-spa"></i>&nbsp;&nbsp;Currency</button>
+                  </div>
+                </tr>
+                <tr>    
+                  <div class="card background" (click)="getButtonName($event)" [routerLink]="['/country']" style="height: 50px;">
+                    <button class="btn" name="Country" ><i class="fa-solid fa-earth-americas"></i>&nbsp;&nbsp;Country</button>
+                  </div>
+                </tr>
+
+                  <tr>
+                    <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/company']" style="height: 50px;">
+                      <button class="btn" name="Currency"><i class="fa-solid fa-building"></i>&nbsp;&nbsp;Company</button>
+                    </div>
+                 </tr> 
+                 <tr>
+                  <div class="card background" (click)="getButtonName($event)" [routerLink]="['/branch']" style="height: 50px;">
+                    <button class="btn" name="Branch" ><i class="fa-solid fa-city"></i>&nbsp;&nbsp;Branch</button>
+                    </div>
+                    </tr>
+
+                    <tr>
+                      <div class="card background" (click)="getButtonName($event)" [routerLink]="['/payment']" style="height: 50px;">
+                        <button class="btn"  name="Payment" ><i class="fa-solid fa-money-bill"></i>&nbsp;&nbsp;Payment</button>
+                      </div>
+                    </tr>
+                  <!-- <th><button class="btn" name="Customer" (click)="getButtonName($event)"  [routerLink]="['/customer']"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Clients</button></th> -->
+                 
+                  <tr>
+                    <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/slottime']" style="height: 50px;">
+                      <button class="btn" name="Therapist"><i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Slot Timings</button>
+                      </div>
+                      </tr>
+                      <tr>
+                        <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/therapist']" style="height: 50px;">
+                          <button class="btn" name="Therapist"><i class="fa-solid fa-spa"></i>&nbsp;&nbsp;Therapist</button>
+                        </div>
+                        </tr>
+                
+                        <tr>
+                          <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/shift']" style="height: 50px;">
+                            <button class="btn" name="Shift"><i class="fa-solid fa-stopwatch-20"></i>&nbsp;&nbsp;Shift Time</button>
+                          </div>  
+                        </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        
+      
+      <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse1" (click)="openServices($event)" >
+        <span *ngIf="!isService">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </span>
+        <span *ngIf="isService">
+          <i class="fa-solid fa-circle-chevron-down"></i>
+        </span>  Services
+      </button>
+
+  <div [ngClass]="elementName=='collapse1' && isService ? 'collapse.show': 'collapse'" id="collapse1">
+    <div class="card table-background">
+      <table class="table-background">
+        <thead>
+          <tr>
+            <div class="card background" (click)="getButtonName($event)" [routerLink]="['/services']" style="height: 50px;">
+            <button class="btn" name="Services"><i class="fa-solid fa-hand-sparkles"></i>&nbsp;&nbsp;Service</button>
+          </div>
+          </tr>
+          
+          <tr>
+
+          </tr>
+        </thead>
+      </table>
+      
+    </div>
+  </div>
+    
+    <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse2" (click)="openTransaction($event)">
+    
+      <span *ngIf="!isTransaction">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+      </span>
+      <span *ngIf="isTransaction">
+        <i class="fa-solid fa-circle-chevron-down"></i>
+      </span>  Invoice
+    </button>
+
+  <div [ngClass]="elementName=='collapse2' && isTransaction ? 'collapse.show': 'collapse'" id="collapse2">
+  <div class="card">
+    <table class="table-background">
+      <thead>
+        <tr>       
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/transaction']" style="height: 50px;">
+        <button class="btn" name="Transactions"><i class="fa-brands fa-stack-overflow"></i>&nbsp;&nbsp;Invoices</button>
+      </div>
+    </tr>
+      </thead>
+    </table>
+   
+  </div>
+  </div>
+  <!-- <button class="btn dropdown-header-item" type="button" data-bs-target="#collapse3" (click)="openUsers($event)">
+    <span *ngIf="!isUser">
+      <i class="fa-solid fa-circle-chevron-right"></i>
+    </span>
+    <span *ngIf="isUser">
+      <i class="fa-solid fa-circle-chevron-down"></i>
+    </span>  Users
+  </button>
+
+  <div [ngClass]="elementName=='collapse3' && isUser ? 'collapse.show': 'collapse'"  id="collapse3">
+  <div class="card">
+    <table class="table-background">
+      <thead>
+        <tr>
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/user']" style="height: 50px;">
+           <button class="btn" name="Users"><i class="fa-solid fa-circle-user"></i>&nbsp;&nbsp;Users</button>
+          </div>          
+      </tr>
+      <tr>
+        <div class="card background" (click)="getButtonName($event)" [routerLink]="['/role']" style="height: 50px;">
+          <button class="btn" name="Roles"><i class="fa-solid fa-person-circle-check"></i>&nbsp;&nbsp;Roles</button>
+        </div>
+      </tr>
+      </thead>
+    </table>
+    
+    
+  </div>
+  </div> -->
+
+  <button class="btn dropdown-header-item" type="button" data-bs-target="#collapse4" (click)="openSchedule($event)">
+   
+      <span *ngIf="!isEvent">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+      </span>
+      <span *ngIf="isEvent">
+        <i class="fa-solid fa-circle-chevron-down"></i>
+      </span>  Bookings
+    </button>
+  <div [ngClass]="elementName=='collapse4' && isEvent ? 'collapse.show': 'collapse'"  id="collapse4">
+    <div class="card">
+      <table class="table-background">
+        <thead>            
+          
+            <tr>
+              <div class="card background" (click)="getButtonName($event)" [routerLink]="['/booking-schedule']" style="height: 50px;">
+                <button class="btn" name="Booking" ><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;Schedule </button>
+              </div>
+            </tr>
+          </thead>
+      </table>
+    </div>
+    </div>
+
+    
+    </div>
+  </ng-template>
+  
+  <ng-template  [ngIf]="role == 'Guest'">      
+    <div  class="card dropdown-header-item" style="border-radius: 0px;border:0px; overflow-y: auto;">
+      
+        <!-- <button class="btn dropdown-header-item" type="button" data-bs-target="#collapseExample" (click)="openMaster($event)"  >
+          <span *ngIf="!isMaster">
+                     <i class="fa-solid fa-circle-chevron-right"></i>
+          </span>
+          <span *ngIf="isMaster">
+            <i class="fa-solid fa-circle-chevron-down"></i>
+          </span>  Master
+          </button>
+      <div [ngClass]="elementName=='collapseExample' && isMaster ? 'collapse.show': 'collapse'" id="collapseExample">
+        <div class="card table-background">
+          <table class="table-background">
+            <thead>
+              <tr >    
+                <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/currency']" style="height: 50px;" >
+                  <button class="btn"  name="Currency"><i class="fa-solid fa-spa"></i>&nbsp;&nbsp;Currency</button>
+                </div>
+              </tr>
+              <tr>    
+                <div class="card background" (click)="getButtonName($event)" [routerLink]="['/country']" style="height: 50px;">
+                  <button class="btn" name="Country" ><i class="fa-solid fa-earth-americas"></i>&nbsp;&nbsp;Country</button>
+                </div>
+              </tr>
+
+                <tr>
+                  <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/company']" style="height: 50px;">
+                    <button class="btn" name="Currency"><i class="fa-solid fa-building"></i>&nbsp;&nbsp;Company</button>
+                  </div>
+               </tr> 
+               <tr>
+                <div class="card background" (click)="getButtonName($event)" [routerLink]="['/branch']" style="height: 50px;">
+                  <button class="btn" name="Branch" ><i class="fa-solid fa-city"></i>&nbsp;&nbsp;Branch</button>
+                  </div>
+                  </tr>
+
+                  <tr>
+                    <div class="card background" (click)="getButtonName($event)" [routerLink]="['/payment']" style="height: 50px;">
+                      <button class="btn"  name="Payment" ><i class="fa-solid fa-money-bill"></i>&nbsp;&nbsp;Payment</button>
+                    </div>
+                  </tr>
+                <th><button class="btn" name="Customer" (click)="getButtonName($event)"  [routerLink]="['/customer']"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Clients</button></th>
+               
+                <tr>
+                  <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/slottime']" style="height: 50px;">
+                    <button class="btn" name="Therapist"><i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Slot Timings</button>
+                    </div>
+                    </tr>
+                    <tr>
+                      <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/therapist']" style="height: 50px;">
+                        <button class="btn" name="Therapist"><i class="fa-solid fa-spa"></i>&nbsp;&nbsp;Therapist</button>
+                      </div>
+                      </tr>
+              
+                      <tr>
+                        <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/shift']" style="height: 50px;">
+                          <button class="btn" name="Shift"><i class="fa-solid fa-stopwatch-20"></i>&nbsp;&nbsp;Shift Time</button>
+                        </div>  
+                      </tr>
+            </thead>
+          </table>
+        </div>
+      </div> -->
+      
+    
+    <!-- <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse1" (click)="openServices($event)" >
+      <span *ngIf="!isService">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+      </span>
+      <span *ngIf="isService">
+        <i class="fa-solid fa-circle-chevron-down"></i>
+      </span>  Services
+    </button> -->
+
+<!-- <div [ngClass]="elementName=='collapse1' && isService ? 'collapse.show': 'collapse'" id="collapse1">
+  <div class="card table-background">
+    <table class="table-background">
+      <thead>
+        <tr>
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/services']" style="height: 50px;">
+          <button class="btn" name="Services"><i class="fa-solid fa-hand-sparkles"></i>&nbsp;&nbsp;Service</button>
+        </div>
+        </tr>
+        
+        <tr>
+
+        </tr>
+      </thead>
+    </table>
+    
+  </div>
+</div>
+  
+  <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse2" (click)="openTransaction($event)">
+  
+    <span *ngIf="!isTransaction">
+      <i class="fa-solid fa-circle-chevron-right"></i>
+    </span>
+    <span *ngIf="isTransaction">
+      <i class="fa-solid fa-circle-chevron-down"></i>
+    </span>  Invoice
+  </button>
+
+<div [ngClass]="elementName=='collapse2' && isTransaction ? 'collapse.show': 'collapse'" id="collapse2">
+<div class="card">
+  <table class="table-background">
+    <thead>
+      <tr>       
+        <div class="card background" (click)="getButtonName($event)" [routerLink]="['/transaction']" style="height: 50px;">
+      <button class="btn" name="Transactions"><i class="fa-brands fa-stack-overflow"></i>&nbsp;&nbsp;Invoices</button>
+    </div>
+  </tr>
+    </thead>
+  </table>
+ 
+</div>
+</div> -->
+<!-- <button class="btn dropdown-header-item" type="button" data-bs-target="#collapse3" (click)="openUsers($event)">
+  <span *ngIf="!isUser">
+    <i class="fa-solid fa-circle-chevron-right"></i>
+  </span>
+  <span *ngIf="isUser">
+    <i class="fa-solid fa-circle-chevron-down"></i>
+  </span>  Users
+</button>
+
+<div [ngClass]="elementName=='collapse3' && isUser ? 'collapse.show': 'collapse'"  id="collapse3">
+<div class="card">
+  <table class="table-background">
+    <thead>
+      <tr>
+        <div class="card background" (click)="getButtonName($event)" [routerLink]="['/user']" style="height: 50px;">
+         <button class="btn" name="Users"><i class="fa-solid fa-circle-user"></i>&nbsp;&nbsp;Users</button>
+        </div>          
+    </tr>
+    <tr>
+      <div class="card background" (click)="getButtonName($event)" [routerLink]="['/role']" style="height: 50px;">
+        <button class="btn" name="Roles"><i class="fa-solid fa-person-circle-check"></i>&nbsp;&nbsp;Roles</button>
+      </div>
+    </tr>
+    </thead>
+  </table>
+  
+  
+</div>
+</div> -->
+
+<button class="btn dropdown-header-item" type="button" data-bs-target="#collapse4" (click)="openSchedule($event)">
+ 
+    <span *ngIf="!isEvent">
+      <i class="fa-solid fa-circle-chevron-right"></i>
+    </span>
+    <span *ngIf="isEvent">
+      <i class="fa-solid fa-circle-chevron-down"></i>
+    </span>  Bookings
+  </button>
+<div [ngClass]="elementName=='collapse4' && isEvent ? 'collapse.show': 'collapse'"  id="collapse4">
+  <div class="card">
+    <table class="table-background">
+      <thead>            
+        
+          <tr>
+            <div class="card background" (click)="getButtonName($event)" [routerLink]="['/guest-home']" style="height: 50px;">
+              <button class="btn" name="Booking" ><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;Bookings</button>
+            </div>
+          </tr>
+        </thead>
+    </table>
+  </div>
+  </div>
+
+  
+  </div>
+</ng-template>
+  
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+.button
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  // width:100px;
+  font-weight: bold;
+  background-color: rgb(199, 157, 199);
+  color:black;
+}
+.true
+{
+  color:green;
+}
+.false{
+  color:red;
+}
+.div-table{
+  
+  overflow-y: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+}
+.class_name{ background-color: blue; }
+
+.back{
+  background-color: #e4f2f1;
+  
+}
+.input{
+  background-color: #e4f2f1;
+  border: 0;
+}
+.placeholder{color: grey;}
+select option:first-child{color: grey; display: none;}
+select option{color: #555;} // bootstrap default color
+// .btn-circle {
+//   width: 25px;
+//   height: 25px;
+//   padding: 5px 5px;
+//   border-radius:60px;
+//   font-size: 10px;
+//   text-align: center;
+// }
+.header{
+  height:6em; background-size:cover; width:auto;
+     background-image:url('https://image.shutterstock.com/image-photo/stack-spa-massage-stones-pink-260nw-690758209.jpg');
+     background-position:50% 50%;
+  font-family: 'sans-serif';
+}
+.fc-event {
+  font-family: 'Segoe UI';
+  font-size: small;
+  align-content: center;
+  
+}
+.btn-modal{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: x-small;
+}
+.fc-event-inner{
+  font-size: .8em;
+}
+.dropdown-menu {
+  min-width:300px;
+}

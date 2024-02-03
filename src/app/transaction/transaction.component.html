@@ -1,0 +1,468 @@
+<div class="card" *ngIf="!isHide">
+  <div class="row" >
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNew()"><i class="fa-solid fa-plus"></i>&nbsp;</button>
+          <button class="btn btn-warning" (click)="deleteRows()"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="input-group flex-nowrap" >
+            <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Search</span>
+            <input type="search" class="form-control"  aria-label="BranchName" aria-describedby="addon-wrapping" [(ngModel)]="searchTerm" >
+            <button type="button" class="btn button"></button>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLable"  aria-hidden="true">
+    <div  class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="modal-title" id="exampleModalLable"><span style="font-size: 25px;font-weight: 500;">Add Invoice</span></p>  
+          <button type="button" class="btn btn-close" id="closeModal" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="close" style="position: absolute; right:0;margin-right: 2px;"></button>                  
+          <!-- <button type="button" class="button-close" data-bs-dismiss="modal" aria-label="close"></button> -->
+          <P type="text" class="text-end"  style="margin-right: 100px;font-weight: bold;"><i class="fa-regular fa-user"></i>&nbsp;{{username}}</P>
+        </div>
+        <div class="modal-body">
+          
+          <div class="card">
+            <form class="form-control" [formGroup]="transFormGroup" (ngSubmit)="saveTransaction()">
+              <div class="row">
+                <div class="col-6">
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['branchId'].dirty && transFormGroup.hasError('required','branchId')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Branch</span>
+                    <!-- <label class="label" for="Country"></label> -->
+                    <div class="col custom-col">
+                    <select class="form-control" formControlName="branchId" (change)="showTherapist($event)" >
+                      <!-- <option selected>{{brNameDto[0].name}}</option> -->
+                      <option [attr.selected]="i==0" [value]="brn.id" *ngFor="let brn of branchDto; let i = index;" >{{brn.name}}</option>                
+                    </select>                                 
+                  </div>                              
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['branchId'].dirty && transFormGroup.hasError('required','branchId')">*Branch is Required</small>  
+                <br>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Invoice No.</span>
+                  <input readonly type="text" class="form-control"  formControlName="invoiceNumber"  placeholder="InvoiceNumber"  aria-label="CountryName" aria-describedby="addon-wrapping" required>
+                  
+                </div>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['therapistId'].dirty && transFormGroup.hasError('required','therapistId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Therapist</span>
+                  <!-- <label class="label" for="Country"></label> -->
+                  <div class="col custom-col">
+                  <select class="form-control" formControlName="therapistId"  >
+                    <option selected disabled>Select Therapist</option>
+                    <option  [value]="thrp.id"  *ngFor="let thrp of therapistDto">{{thrp.name}}</option>                  
+                  </select>                           
+                  </div>
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['therapistId'].dirty && transFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['roomNumber'].dirty && transFormGroup.hasError('required','roomNumber')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Room No.</span>
+                  <div class="col custom-col">
+                  <input  type="text" id="room"  class="form-control" formControlName="roomNumber" placeholder="RoomNumber"  aria-label="roomNumber" aria-describedby="addon-wrapping" >                                              </div>
+                         
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['roomNumber'].dirty && transFormGroup.hasError('required','roomNumber')">*Room Number is Required</small>
+                <br>
+               
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['phone'].dirty && transFormGroup.hasError('required','phone')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Phone</span>
+                    <div class="col custom-col">
+                    <input type="text" class="form-control" formControlName="phone" (change)="onCustomerChange($event)"  placeholder="Phone"  aria-label="CountryName" aria-describedby="addon-wrapping">                  
+                    </div>                                            
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['phone'].dirty && transFormGroup.hasError('required','phone')">*Phone is Required</small>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['userId'].dirty && transFormGroup.hasError('required','userId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Customer</span>
+                  <input type="text" class="form-control" formControlName="userId"  placeholder="userId"  aria-label="userId" aria-describedby="addon-wrapping"> 
+                           
+                  <!-- <div class="col custom-col">
+                        <select class="form-control" formControlName="customerId" (change)="getCustomerStatus()" style="font-size: small">
+                          <option selected disabled></option>
+                          <option  [value]="user.id"  *ngFor="let user of userDto">{{customerName}}</option>                                         
+                        </select>                                       
+                  </div> -->
+                  <button type="button" *ngIf="!isModify" class="btn button" (click)="openCustomer()"><i class="fa-solid fa-users"></i></button>                                                                 
+                  </div>
+                  <small class="text-danger small" *ngIf="transFormGroup.controls['userId'].dirty && transFormGroup.hasError('required','userId')">*Customer is Required</small>
+                  <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['serviceId'].dirty && transFormGroup.hasError('required','serviceId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Service</span>
+                  <div class="col custom-col">
+                  <select class="form-control" formControlName="serviceId"  (change)="onServiceChange($event)" >
+                    <option selected disabled >Select Service</option>
+                    <option  [value]="srv.id"  *ngFor="let srv of serviceDto">{{srv.name}}</option>
+                   </select>                            
+                </div>
+                <button type="button" *ngIf="!isModify" class="btn button" (click)="OpenService()"><i class="fa-solid fa-spa"></i></button>
+                
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['serviceId'].dirty && transFormGroup.hasError('required','serviceId')">*Service is Required</small>
+                <br>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Price</span>
+                  <input type="text" class="form-control" formControlName="price"  placeholder="Price"  aria-label="CountryName" aria-describedby="addon-wrapping">                
+                </div>
+                <br>
+                </div>
+                <div class="col-6">
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Vat</span>
+                    <input type="text" class="form-control" formControlName="vat" placeholder="Vat"  aria-label="CountryName" aria-describedby="addon-wrapping">                  
+                  </div>
+                  <br>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Mcpl.Tax</span>
+                    <input type="text" class="form-control" formControlName="municipalTax" placeholder="MunicipalTax"  aria-label="CountryName" aria-describedby="addon-wrapping">                  
+                  </div> 
+                  <br>
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['qty'].dirty && transFormGroup.hasError('required','qty')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Qty</span>
+                    <div class="col custom-col">
+                    <input type="text" class="form-control" formControlName="qty" placeholder="Qty" (input)="onChangeQty($event)"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                  </div>
+                  </div>
+                  <small class="text-danger small" *ngIf="transFormGroup.controls['qty'].dirty && transFormGroup.hasError('required','qty')">*Qty is Required</small> 
+                  <br>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Total Cost</span>
+                    <input type="text" class="form-control" formControlName="totalCost" placeholder="TotalCost"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                    </div>
+                  <br>
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['roomNumber'].dirty && transFormGroup.hasError('required','roomNumber')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Tips</span>
+                    <input type="text" class="form-control" formControlName="tips" placeholder="Tips"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                    </div>
+                    <br>
+                    <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['paymentId'].dirty && transFormGroup.hasError('required','paymentId')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Payment</span>
+                      <div class="col custom-col">
+                      <select class="form-control" formControlName="paymentId"  >
+                        <option selected disabled>Select Payment</option>
+                        <option  [value]="pay.id"  *ngFor="let pay of paymentDto">{{pay.name}}</option>                       
+                      </select>                          
+                    </div>                  
+                    </div>
+                    <small class="text-white small" *ngIf="transFormGroup.controls['paymentId'].dirty && transFormGroup.hasError('required','paymentId')">*Payment Type is Required</small>
+                    <br>
+                    <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['customerStatus'].dirty && transFormGroup.hasError('required','customerStatus')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Status</span>
+                      <div class="col custom-col">
+                      <input type="text" class="form-control" formControlName="customerStatus" placeholder="customerStatus"  aria-label="customerStatus" aria-describedby="addon-wrapping">
+                                               
+                    </div>
+                                          
+                  </div>   
+                  <small class="text-danger small" *ngIf="transFormGroup.controls['customerStatus'].dirty && transFormGroup.hasError('required','customerStatus')">*Customer Status is Required</small>                  
+                  <br>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Refund</span>
+                    <input type="text" class="form-control" formControlName="refund" placeholder="Refund"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                    <input hidden type="text" class="form-control" formControlName="receptionistId" placeholder="receptionistId"  aria-label="receptionistId" aria-describedby="addon-wrapping">                 
+                  </div>
+                  <br>                
+                </div>
+                
+                <!-- <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">User</span>
+                  <input readonly type="text" class="form-control"  formControlName="userId"  placeholder="User"  aria-label="User" aria-describedby="addon-wrapping" required>                                         
+                  </div>
+                  <br> -->
+                  <div class="card div-back" style="height:50px"></div>   
+                  <br>
+                  <div class="modal-footer">       
+                    <button type="button" *ngIf="!isModify" class="btn btn-primary" (click)="saveTransaction()">Save</button>&nbsp;
+                    <!-- <button type="button" *ngIf="!isModify" class="btn btn-danger" id="closeModal"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="close()">Close</button>&nbsp; -->
+                    <button type="button"  *ngIf="isModify" class="btn btn-warning " (click)="modifyTransaction()">Modify</button>&nbsp;
+                    <button type="button" *ngIf="isModify" class="btn btn-danger " (click)="Cancel()">Cancel</button>
+                  </div>
+              </div>
+  
+  
+  
+              
+              </form>   
+                  
+           </div>
+        </div>
+        
+       
+      </div>
+  
+    </div>
+  
+  </div>
+  <div class="card" style="height: 25px; border:0;background-color: #e4f2f1;;"></div>
+  
+    <div class="card" style="height: 650px; border:0">
+    <div class="card-body div-table" >
+      <div class="alert alert-info table" *ngIf="transDto.length==0">
+        No Records Found!!!
+      </div>
+      <div class="table-responsive div-table" style="height: 75svb;border:0">
+       <table class="table table-hover table-sm" *ngIf="transDto.length>0" >
+        <thead class="table-primary">
+          <tr>
+            <th><input type="checkbox" id="countryCheck" name="countryCheck" (change)="check($event)" [checked]="isCheckedMap"></th>
+            <th>#</th>
+            <th>Branch</th>
+            <!-- <th>Trans.Date</th> -->
+            <th>Inv.N0</th>
+            <th>Therapist</th>
+            <th>Room No</th>
+            <th>Customer Name</th>
+            <th>Phone</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Tips</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Refund</th>
+            <th>Booking ID</th>
+            <!-- <th>User</th> -->
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of transPageDto | filter:searchTerm; let i = index">
+            <td><input type="checkbox" id="countryCheck" name="countryCheck" [checked]="isCheckedMap"></td>
+            <td>{{i+1}}</td>
+            <td>{{row.branch.name}}</td>
+            <!-- <td>{{row.tdate}}</td> -->
+            <td>{{row.invoiceNumber}}</td>
+            <td>{{row.therapist.name}}</td>
+            <td>{{row.roomNumber}}</td>     
+            <td>{{row.users.firstName}}</td>  
+            <td>{{row.phone}}</td>
+            <td>{{row.service.name}}</td>
+            <td>{{row.price}}</td>
+            <td>{{row.qty}}</td>
+            <td>{{row.totalCost}}</td>
+            <td>{{row.tips}}</td>
+            <td>{{row.payment.name}}</td>
+            <td>{{row.customerStatus}}</td>
+            <td>{{row.refund}}</td>
+            <td>{{row.bookingId}}</td>
+            <!-- <td>{{row.users.receptionistId}}</td> -->
+            <td>
+              <!-- <button class="button" mat-icon-button color="primary" (click)="getRecords(row)">
+                <mat-icon>edit</mat-icon>
+              </button> -->
+              <button type="button" class="btn btn-info text-white btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getRecords(row)"><i class="fa-solid fa-user-pen"></i></button>
+             &nbsp;<button type="button" class="btn btn-danger btn-circle" (click)="deleteCountry(row)"><i class="fa-solid fa-trash"></i></button>
+             &nbsp;<button type="button"  class="btn btn-success btn-circle" (click)="showInvoice(row.invoiceNumber)"><i class="fa-solid fa-print"></i></button>
+             <!-- <button class="button" mat-icon-button color="warn" (click)="deleteBranch(row)">
+                <mat-icon>delete</mat-icon>
+              </button> -->
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    </div>
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination  [collectionSize]="transDto.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshPages()">           
+      </ngb-pagination>
+      <select class="form-select" style="width:auto;" [(ngModel)]="pageSize" (ngModelChange)="refreshPages()" >
+        <option [ngValue]="5">5 records per page</option>
+        <option [ngValue]="10">10 items per page</option>
+        <option [ngValue]="15">15 items per page</option>
+        <option [ngValue]="20">20 items per page</option>
+        <option [ngValue]="25">25 items per page</option>
+      </select>
+    </div>
+</div>
+
+<div class="card" *ngIf="isHide">
+          <div class="card-header text-left">
+            <div class="row">
+              <div class="col-10">
+                <span style="font-size: 25px;font-weight: 500; align-items: center;">Add Invoice </span>
+              </div>
+              <div class="col-2">
+                <span>
+                  <i class="fa-regular fa-user text-end"></i>&nbsp;{{username}}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form class="form-control" [formGroup]="transFormGroup" (ngSubmit)="saveTransaction()">
+              <div class="row">
+                <div class="col-6">
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['branchId'].dirty && transFormGroup.hasError('required','branchId')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Branch</span>
+                    <!-- <label class="label" for="Country"></label> -->
+                    <div class="col custom-col">
+                    <select class="form-control" formControlName="branchId" (change)="showTherapist($event)" >
+                      <!-- <option selected>{{brNameDto[0].name}}</option> -->
+                      <option [attr.selected]="i==0" [value]="brn.id" *ngFor="let brn of branchDto; let i = index;" >{{brn.name}}</option>                
+                    </select>                                 
+                  </div>                              
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['branchId'].dirty && transFormGroup.hasError('required','branchId')">*Branch is Required</small>  
+                <br>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Invoice No.</span>
+                  <input readonly type="text" class="form-control"  formControlName="invoiceNumber"  placeholder="InvoiceNumber"  aria-label="CountryName" aria-describedby="addon-wrapping" required>
+                  
+                </div>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['therapistId'].dirty && transFormGroup.hasError('required','therapistId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Therapist</span>
+                  <!-- <label class="label" for="Country"></label> -->
+                  <div class="col custom-col">
+                    <input readonly type="text" class="form-control"  formControlName="therapistId" placeholder="Therapist"  aria-label="Therapist" aria-describedby="addon-wrapping" required>
+                  <!-- <select class="form-control" formControlName="therapistId"  >
+                    <option selected disabled>Select Therapist</option>
+                    <option  [value]="thrp.id"  *ngFor="let thrp of therapistDto">{{thrp.name}}</option>                  
+                  </select>                            -->
+                  </div>
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['therapistId'].dirty && transFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['roomNumber'].dirty && transFormGroup.hasError('required','roomNumber')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Room No.</span>
+                  <div class="col custom-col">
+                  <input  type="text" id="room"  class="form-control" formControlName="roomNumber" placeholder="RoomNumber"  aria-label="roomNumber" aria-describedby="addon-wrapping" >                                              </div>
+                         
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['roomNumber'].dirty && transFormGroup.hasError('required','roomNumber')">*Room Number is Required</small>
+                <br>
+               
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['phone'].dirty && transFormGroup.hasError('required','phone')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Phone</span>
+                    <div class="col custom-col">
+                    <input type="text" class="form-control" formControlName="phone" (change)="onCustomerChange($event)"  placeholder="Phone"  aria-label="CountryName" aria-describedby="addon-wrapping">                  
+                    </div>                                            
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['phone'].dirty && transFormGroup.hasError('required','phone')">*Phone is Required</small>
+                <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['userId'].dirty && transFormGroup.hasError('required','userId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Customer</span>
+                  <input type="text" class="form-control" formControlName="userId"  placeholder="Customer"  aria-label="customerId" aria-describedby="addon-wrapping"> 
+                           
+                  <!-- <div class="col custom-col">
+                        <select class="form-control" formControlName="customerId" (change)="getCustomerStatus()" style="font-size: small">
+                          <option selected disabled></option>
+                          <option  [value]="user.id"  *ngFor="let user of userDto">{{customerName}}</option>                                         
+                        </select>                                       
+                  </div> -->
+                  <button type="button" *ngIf="!isModify" class="btn button" (click)="openCustomer()"><i class="fa-solid fa-users"></i></button>                                                                 
+                  </div>
+                  <small class="text-danger small" *ngIf="transFormGroup.controls['userId'].dirty && transFormGroup.hasError('required','userId')">*Customer is Required</small>
+                  <br>
+                <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['serviceId'].dirty && transFormGroup.hasError('required','serviceId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Service</span>
+                  <div class="col custom-col">
+                  <select class="form-control" formControlName="serviceId"  (change)="onServiceChange($event)" >
+                    <option selected disabled >Select Service</option>
+                    <option  [value]="srv.id"  *ngFor="let srv of serviceDto">{{srv.name}}</option>
+                   </select>                            
+                </div>
+                <button type="button" *ngIf="!isModify" class="btn button" (click)="OpenService()"><i class="fa-solid fa-spa"></i></button>
+                
+                </div>
+                <small class="text-danger small" *ngIf="transFormGroup.controls['serviceId'].dirty && transFormGroup.hasError('required','serviceId')">*Service is Required</small>
+                <br>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Price</span>
+                  <input type="text" class="form-control" formControlName="price"  placeholder="Price"  aria-label="CountryName" aria-describedby="addon-wrapping">                
+                </div>
+                <br>
+                </div>
+                <div class="col-6">
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Vat</span>
+                    <input type="text" class="form-control" formControlName="vat" placeholder="Vat"  aria-label="CountryName" aria-describedby="addon-wrapping">                  
+                  </div>
+                  <br>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Mcpl.Tax</span>
+                    <input type="text" class="form-control" formControlName="municipalTax" placeholder="MunicipalTax"  aria-label="CountryName" aria-describedby="addon-wrapping">                  
+                  </div> 
+                  <br>
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['qty'].dirty && transFormGroup.hasError('required','qty')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Qty</span>
+                    <div class="col custom-col">
+                    <input type="text" class="form-control" formControlName="qty" placeholder="Qty" (input)="onChangeQty($event)"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                  </div>
+                  </div>
+                  <small class="text-danger small" *ngIf="transFormGroup.controls['qty'].dirty && transFormGroup.hasError('required','qty')">*Qty is Required</small> 
+                  <br>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Total Cost</span>
+                    <input type="text" class="form-control" formControlName="totalCost" placeholder="TotalCost"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                    </div>
+                  <br>
+                  <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['roomNumber'].dirty && transFormGroup.hasError('required','roomNumber')">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Tips</span>
+                    <input type="text" class="form-control" formControlName="tips" placeholder="Tips"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                    </div>
+                    <br>
+                    <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['paymentId'].dirty && transFormGroup.hasError('required','paymentId')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Payment</span>
+                      <div class="col custom-col">
+                      <select class="form-control" formControlName="paymentId"  >
+                        <option selected disabled>Select Payment</option>
+                        <option  [value]="pay.id"  *ngFor="let pay of paymentDto">{{pay.name}}</option>                       
+                      </select>                          
+                    </div>                  
+                    </div>
+                    <small class="text-white small" *ngIf="transFormGroup.controls['paymentId'].dirty && transFormGroup.hasError('required','paymentId')">*Payment Type is Required</small>
+                    <br>
+                    <div class="input-group flex-nowrap" [class.error]="transFormGroup.controls['customerStatus'].dirty && transFormGroup.hasError('required','customerStatus')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Status</span>
+                      <div class="col custom-col">
+                      <input type="text" class="form-control" formControlName="customerStatus" placeholder="customerStatus"  aria-label="customerStatus" aria-describedby="addon-wrapping">
+                                               
+                    </div>
+                                          
+                  </div>   
+                  <small class="text-danger small" *ngIf="transFormGroup.controls['customerStatus'].dirty && transFormGroup.hasError('required','customerStatus')">*Customer Status is Required</small>                  
+                  <br>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Refund</span>
+                    <input type="text" class="form-control" formControlName="refund" placeholder="Refund"  aria-label="CountryName" aria-describedby="addon-wrapping">
+                    <input hidden type="text" class="form-control" formControlName="receptionistId" placeholder="receptionistId"  aria-label="receptionistId" aria-describedby="addon-wrapping">                 
+                  </div>
+                  <br>                
+                </div>
+                
+                <!-- <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">User</span>
+                  <input readonly type="text" class="form-control"  formControlName="userId"  placeholder="User"  aria-label="User" aria-describedby="addon-wrapping" required>                                         
+                  </div>
+                  <br> -->
+                  <div class="card div-back" style="height:50px"></div>   
+                  <br>
+                  <div class="card-footer text-end">       
+                    <button type="button" *ngIf="!isModify" class="btn btn-primary" (click)="saveTransaction()">Save</button>&nbsp;
+                    <!-- <button type="button" *ngIf="!isModify" class="btn btn-danger" id="closeModal"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="close()">Close</button>&nbsp; -->
+                    <button type="button"  *ngIf="isModify" class="btn btn-warning " (click)="modifyTransaction()">Modify</button>&nbsp;
+                    <button type="button" *ngIf="isModify" class="btn btn-danger " (click)="Cancel()">Cancel</button>
+                  </div>
+              </div>
+              </form>   
+           </div>
+</div>
+        
+       
+      
+  
+

@@ -1,0 +1,178 @@
+
+  <!-- Brand Logo -->
+  <div class="card text-center" style="border:0">
+    <div class="toolbar" role="banner" >
+      <!-- <picture>
+        <source srcset="https://png.pngtree.com/png-clipart/20220626/original/pngtree-spa-logo-png-image_8187382.png" type="image/svg+xml">
+        <img src="https://png.pngtree.com/png-clipart/20220626/original/pngtree-spa-logo-png-image_8187382.png" class="img-fluid" alt="...">
+      </picture> -->
+      <img class="image-circle"
+          width="20%"              
+        alt="Responsive image"
+        src="https://laughingwatersspa.com/wp-content/uploads/2022/12/cropped-laughing-waters-spa-blu.png"  />
+
+    <div class="spacer"></div>
+    </div>
+  </div>
+
+  
+<ng-template [ngIf]="role == 'Admin' || role == 'Manager'">
+  <div class="card dashboard" style="border:0px">    
+    <button class="btn dashboard" (click)="openClose($event)" type="button"  [routerLink]="['/dashboard']" routerLinkActive="router-link-active" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" >
+      <i class="fa-solid fa-chart-simple"></i> </button>
+   
+  </div>
+</ng-template>
+
+  <!-- background-color: #343a40; -->
+<!-- Sidebar -->
+<ng-template [ngIf]="role == 'Admin' || role == 'Manager'" >      
+  <div  class="card dropdown-header-item" style="border-radius: 0px">  
+    <button class="btn dropdown-header-item" type="button" data-bs-target="#collapseExample" data-bs-toggle="tooltip" data-bs-placement="top" title="Masters" (click)="openMaster($event)">
+    <i class="fa-solid fa-list" data-bs-target="#collapseExample"></i></button>
+
+<div [ngClass]="elementName=='collapseExample' && isMaster ? 'collapse.show': 'collapse'" id="collapseExample">
+  <div class="card table-background">
+    <table class="table-background">
+      <thead>
+        <tr >    
+          <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/currency']" style="height: 50px;" >
+            <button class="btn btn-item"  name="Currency">Currency</button>
+          </div>
+        </tr>
+        <tr>    
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/country']" style="height: 50px;">
+            <button class="btn btn-item" name="Country" >Country</button>
+          </div>
+        </tr>
+
+          <tr>
+            <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/company']" style="height: 50px;">
+              <button class="btn btn-item" name="Currency">Company</button>
+            </div>
+         </tr> 
+         <tr>
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/branch']" style="height: 50px;">
+            <button class="btn btn-item" name="Branch" >Branch</button>
+            </div>
+            </tr>
+
+            <tr>
+              <div class="card background" (click)="getButtonName($event)" [routerLink]="['/payment']" style="height: 50px;">
+                <button class="btn btn-item"  name="Payment" >Payment</button>
+              </div>
+            </tr>
+          <!-- <th><button class="btn" name="Customer" (click)="getButtonName($event)"  [routerLink]="['/customer']"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Clients</button></th> -->
+         
+          <tr>
+            <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/slottime']" style="height: 50px;">
+              <button class="btn btn-item" name="Therapist">Slot Time</button>
+              </div>
+              </tr>
+              <tr>
+                <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/therapist']" style="height: 50px;">
+                  <button class="btn btn-item" name="Therapist">Therapist</button>
+                </div>
+                </tr>
+        
+                <tr>
+                  <div class="card background" (click)="getButtonName($event)"  [routerLink]="['/shift']" style="height: 50px;">
+                    <button class="btn btn-item" name="Shift">Shift Time</button>
+                  </div>  
+                </tr>
+       
+      </thead>
+    </table>
+  </div>
+</div>
+
+  <button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse1" data-bs-toggle="tooltip" data-bs-placement="top" title="Service"  (click)="openServices($event)">
+    <i class="fa-solid fa-spray-can-sparkles" data-bs-target="#collapse1"></i>
+  </button>
+
+<div [ngClass]="elementName=='collapse1' && isService ? 'collapse.show': 'collapse'" id="collapse1">
+<div class="card table-background">
+  <table class="table-background">
+    <thead>
+      <tr >    
+        <div class="card background" (click)="getButtonName($event)" [routerLink]="['/services']" style="height: 50px;">
+          <button class="btn btn-block child" name="Services">Service</button>
+        </div>
+      </tr>
+    </thead>
+  </table>
+</div>
+</div>
+
+<button class="btn dropdown-header-item" type="button"  data-bs-target="#collapse2"  data-bs-toggle="tooltip" data-bs-placement="top" title="Invoices" (click)="openTransaction($event)">
+  <i class="fa-solid fa-snowflake" data-bs-target="#collapse2"></i>
+</button>
+
+<div [ngClass]="elementName=='collapse2' && isTransaction ? 'collapse.show': 'collapse'" id="collapse2">
+<div class="card">
+<table class="table-background">
+  <thead>
+    <tr >    
+      <div class="card background" (click)="getButtonName($event)" [routerLink]="['/transaction']" style="height: 50px;">
+     <button class="btn btn-block child" name="Transactions">Invoice</button>
+    </div>
+    </tr>
+    </thead>
+</table>
+</div>
+</div>
+
+<button class="btn dropdown-header-item" type="button" data-bs-target="#collapse3" data-bs-toggle="tooltip" data-bs-placement="top" title="Users"  (click)="openUsers($event)">
+<i class="fa-solid fa-gear" data-bs-target="#collapse3"></i>
+</button>
+<div [ngClass]="elementName=='collapse3' && isUser ? 'collapse.show': 'collapse'"  id="collapse3">
+<div class="card">
+<table class="table-background">
+  <thead>
+    <tr >    
+      <div class="card background" (click)="getButtonName($event)" [routerLink]="['/user']" style="height: 50px;">
+        <button class="btn child" name="Users">Users</button>
+      </div>
+    </tr>
+    <tr >    
+      <div class="card background" (click)="getButtonName($event)" [routerLink]="['/role']" style="height: 50px;">
+        <button class="btn child" name="Roles">Roles</button>
+      </div>
+    </tr>
+   </thead>
+</table>
+</div>
+</div>
+
+<button class="btn dropdown-header-item" type="button" data-bs-target="#collapse4" (click)="openSchedule($event)">
+  <i class="fa-regular fa-calendar-days" data-bs-target="#collapse4"></i>
+
+ </button>
+<div [ngClass]="elementName=='collapse4' && isEvent ? 'collapse.show': 'collapse'"  id="collapse4">
+  <div class="card">
+    <table class="table-background">
+      <thead>
+        <tr >    
+          <div class="card background" (click)="getButtonName($event)" [routerLink]="['/booking-schedule']" style="height: 50px;">
+            <button class="btn child" name="Schedule">Schedule</button>
+          </div>
+        </tr>
+        
+        </thead>
+    </table>
+    
+    
+  </div>
+  </div>
+</div>
+</ng-template>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+.btn_dropdown{
+  background-color: whitesmoke;
+  width:250px;
+  height: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size:medium;
+  border: 0;
+  text-align: left;
+  border-radius: 0px;
+  color:black;
+
+}
+.btn_dropdown:hover{
+  background-color: rgb(165, 198, 248);
+}
+.div{
+  background-color: whitesmoke;
+}
+.dropdown-menu {
+  background-color: whitesmoke;
+  min-width:250px;
+  // min-height:300px;
+}
+
+.button{
+  background-color: rgb(4, 52, 156);
+  width: 50px;
+  height: 50px;
+  padding: 1px 5px;
+  border-radius:50px;
+  border-color:rgb(4, 52, 156);
+  width: 50px;
+  //  font-size: 2px;
+  // text-align: center;
+  // color:white;
+  background-image: url('https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912523/business-man-icon-sm.png') !important;
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size:cover; //or cover
+  
+    
+}
+.button-branch{
+  background-color: rgb(174, 173, 173);
+  color:white;
+  border-radius: 0px;
+  text-align: left;
+  // width: 45px;
+  // height: 45px;
+  // padding: 4px 5px;
+  // border-radius:50px;
+  // font-size: 20px;
+ 
+}
+.hide-button
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  // width:100px;
+  font-weight: bold;
+  background-color: rgb(165, 198, 248);
+  color:black;
+}

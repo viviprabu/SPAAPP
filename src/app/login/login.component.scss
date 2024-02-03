@@ -1,0 +1,90 @@
+.outer{
+  height: 100vh;
+  background: linear-gradient(to top,#e4f2f1 40%,#e4f2f1 80%) no-repeat;
+}
+.panel-heading{
+  text-align: center;
+  margin-bottom: 10px;
+}
+#forget{
+  min-width: 100px;
+  margin-left: auto;
+  text-decoration: none;
+  cursor:pointer;
+  // font-weight: bold;
+}
+a:hover{
+  text-decoration: none;
+}
+.form-inline label{
+  padding-left: 10px;
+  margin:0;
+  cursor: pointer;
+}
+.btn{
+  background-color:rgb(165, 198, 248);
+  margin-top: 20px;
+  border-radius: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // font-weight: bold;
+}
+.panel{
+  min-height: 380px;
+  box-shadow: 20px 20px 80px rgb(4, 52, 156);
+  border-radius: 12px;
+  margin-top:100px;
+}
+.input-field{
+  border-radius: 5px;
+  padding:5px;
+  display: flex;
+  align-items: center;
+  cursor:pointer;
+  border : 1px solid #565555;
+  color:rgb(42, 42, 43);
+
+}
+.input-field.error{
+  border : 1px solid red;
+  color:red;
+  
+}
+input[type='text'],
+input[type='password']{
+border: 1px;
+outline: none;
+box-shadow: none;
+width: 100%;
+}
+.fa-eye-slash.btn{
+  border: none;
+outline: none;
+box-shadow: none;
+}
+img{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+}
+.bordert{
+  border-top: 1px solid #aaa;
+  position: relative;
+}
+.bordert::after{
+  content:"or connect with";
+  position: absolute;
+  top: -13px;
+  left: 33%;
+  background-color: #f5ebfa;
+  padding: 0 8px;
+  font-weight: bold;
+}
+// .field-icon {
+//   float: right;
+//   left: -15px;
+//   margin-top: -25px;
+//   position: relative;
+//   z-index: 2;
+// }

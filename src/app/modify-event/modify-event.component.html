@@ -1,0 +1,36 @@
+
+    <div class="card">
+      <div class="card-header">
+      <span>Booking Details</span>
+      </div>
+      <div class="card-body">
+        <form class="form-control back" [formGroup]="bookingFormGroup">
+      
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Customer Name</span>
+                <input type="text" class="form-control input" formControlName="name">                  
+              </div>
+              <br>
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Phone</span>
+                  <input type="text" class="form-control input" formControlName="phone">                  
+                </div>
+                <br>
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Service</span>
+                  <input type="text" class="form-control input" formControlName="serviceId">                  
+                </div>
+                <br>
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Therapist</span>
+                      <input type="text" class="form-control input" formControlName="therapistId">                  
+                    </div>
+                    <br>       
+                </form>
+                </div>         
+      
+      <div class="card-footer">
+    
+      </div>
+    </div>
+    

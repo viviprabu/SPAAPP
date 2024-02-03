@@ -1,0 +1,135 @@
+<!-- <div class="container"> -->
+    <div class="row" style="margin-top: 0;">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <button *ngIf="!toggleWeek" class="btn btn-primary"  (click)="toggleWeekends()"><i class="fa-solid fa-toggle-off"></i>&nbsp;Weekends</button>
+              <button *ngIf="toggleWeek" class="btn btn-primary"  (click)="toggleWeekends()"><i class="fa-solid fa-toggle-on"></i>&nbsp;Weekends</button>&nbsp;
+              <!-- <button class="btn btn-success"  (click)="slotDurationOneHour()"><i class="fa-solid fa-6"></i><i class="fa-solid fa-0"></i>&nbsp;min</button>&nbsp; -->
+              <!-- <button class="btn btn-info"  (click)="slotDurationOneAndHalfHour()"><i class="fa-solid fa-9"></i><i class="fa-solid fa-0"></i>&nbsp;min</button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group flex-nowrap" >
+                <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Search</span>
+                <!-- <input type="search" class="form-control"  [(ngModel)]="searchTerm"  aria-label="BranchName" aria-describedby="addon-wrapping">
+                <button type="button" class="btn button"></button> -->
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>     
+      <br>
+    <div class="card main" style="height:90%; width:100%">
+        
+        <full-calendar class="fc-event-inner"
+        [options]="calendarOptions" 
+        [events]="eventsObservable | async"
+        [deepChangeDetection] = true
+        (dateClick)="handleDateClick($event)"
+        (eventsClick)="handleEventClick($event)"
+        
+                >        
+        <ng-template #eventContent let-arg>
+            <b>{{arg.event.title}}</b>
+        </ng-template>
+
+        
+
+    </full-calendar>
+    </div>
+    
+<!-- </div> -->
+
+<ng-template #showContent>
+        
+
+  <div class="card-header text-end" style="background-color: black;">
+    <button type="button" class="btn btn-close btn-secondary" (click)="close()"></button>
+  </div>
+          <div class="card">
+            <form class="form-control" [formGroup]="bookingFormGroup" (ngSubmit)="saveBooking()">
+              <table class="table" >
+                <thead class="table-dark" >
+                    <tr class="bg-dark">
+                   </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','title')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Title</span>
+                      <input type="text" class="form-control" formControlName="title"  placeholder="Title" aria-label="Title" aria-describedby="addon-wrapping">
+                      <button type="button" class="btn button"></button>
+                      <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','title')">*Title is Required</small>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Title</span>
+                      <input type="text" class="form-control" formControlName="scheduleDate"  placeholder="scheduleDate" aria-label="Title" aria-describedby="addon-wrapping">
+                      <button type="button" class="btn button"></button>
+                      
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','name')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span>
+                      <input type="text" class="form-control" formControlName="name"  placeholder="Name" aria-label="Name" aria-describedby="addon-wrapping">
+                      <button type="button" class="btn button"></button>
+                      <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','name')">*Name is Required</small>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','phone')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Phone</span>
+                      <input type="text" class="form-control" formControlName="phone"  placeholder="Phone" aria-label="Phone" aria-describedby="addon-wrapping">
+                      <button type="button" class="btn button"></button>
+                      <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','phone')">*Phone Number is Required</small>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','serviceId')">
+                      <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Service</span>
+                      
+                      <select class="form-control" formControlName="serviceId"  >
+                        <option selected disabled>Select Service</option>
+                        <option  [value]="serv.id"  *ngFor="let serv of serviceDto">{{serv.name}}</option>
+                      </select>
+                      <button type="button" class="btn button"></button>                  
+                    </div>
+                    <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','serviceId')">*Service is Required</small>
+                  </tr>
+                  <tr>
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+           </div>
+        
+        <div class="modal-footer">
+          <button type="button"  class="btn btn-primary " (click)="saveBooking()">Save</button>&nbsp;
+         
+          
+        </div>
+  </ng-template>
+
+  <!-- <div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">Project List</h1>
+    </header>
+    <ul>
+        <li>FTP Program Application</li>
+        <li>Image to Text Converter Application</li>
+        <li>Library Management System</li>
+        <li>Image fetching API</li>
+        <li>Quiz Game Application</li>
+    </ul>
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-close-button">Close</button>
+    </footer>
+</div> -->

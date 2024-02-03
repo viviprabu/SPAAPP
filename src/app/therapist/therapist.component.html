@@ -1,0 +1,207 @@
+<div class="row" >
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNew()"><i class="fa-solid fa-plus"></i>&nbsp;</button>
+        <button class="btn btn-warning" (click)="deleteRows()"><i class="fa-solid fa-trash"></i></button>
+      </div>
+      
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="input-group flex-nowrap"  >
+          <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Search</span>
+          <input type="search" class="form-control"  [(ngModel)]="searchTerm"  aria-label="BranchName" aria-describedby="addon-wrapping">
+          <button type="button" class="btn button"></button>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLable"  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLable"><span style="font-size: 25px;font-weight: 500;">Add Therapist</span></p>   
+        <button type="button" class="btn btn-close" id="closeModal" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="close" style="position: absolute; right:0;margin-right: 2px;"></button>                 
+        <!-- <button type="button" class="button-close" data-bs-dismiss="modal" aria-label="close"></button> -->
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <form class="form-control" [formGroup]="TherapistFormGroup">
+            <div class="row">
+              <div class="col-6">
+                <div class="input-group flex-nowrap" [class.error]="isSubmit && TherapistFormGroup.hasError('required','name')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span>
+                  <input type="text" class="form-control" formControlName="name" placeholder="TherapistName"  aria-label="TherapistName" aria-describedby="addon-wrapping">
+                </div>
+                <small class="text-danger small" *ngIf="isSubmit && TherapistFormGroup.hasError('required','name')">*Name is Required</small>
+                <br>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Shift</span>
+                  <!-- <label class="label" for="Country"></label> -->
+                  <select class="form-control"  id="selectShift" (change)="getShiftId($event)" >
+                    <option selected disabled>Add Shift</option>
+                    <option  [value]="shift.id"  *ngFor="let shift of shiftDto; let i=index" >{{shift.name}}</option>     
+                                   
+                  </select>                 
+                  <button type="button" class="btn btn-info"  (click)="selectShift()"><i class="fa-solid fa-plus"></i></button> 
+                </div>
+                <!-- <small class="text-danger small" *ngIf="isSubmit && therapistShiftFormGroup.hasError('required','shiftId')">*Shift is Required</small> -->
+                <br>
+              </div>
+              <div class="col-6">
+                <div class="input-group flex-nowrap" [class.error]="isSubmit && TherapistFormGroup.hasError('required','branchId')">
+                  <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Branch</span>
+                  <!-- <label class="label" for="Country"></label> -->
+                  <select class="form-control" formControlName="branchId" >
+                    <option selected disabled>Select Branch</option>
+                    <option  [value]="br.id"  *ngFor="let br of branchDto" >{{br.name}}</option>
+                  </select>
+                          
+                </div>
+                <small class="text-danger small" *ngIf="isSubmit && TherapistFormGroup.hasError('required','branchId')">*Branch is Required</small>
+                <br>
+                <div class="table-responsive" >
+                  <table class="table table-hover table-sm" >
+                   <thead class="table-dark" >
+                     <tr>
+                       <th>#</th>
+                       <th>Shift Name</th>
+                       <th>Start Time</th>
+                       <th>End Time</th>
+                                           
+                       <th></th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr *ngFor="let row of finalShiftDto; let i=index" >
+                       <td>{{i+1}}</td>
+                       <td>{{row.name}}</td>
+                       <td>{{row.startTime | date:"hh:mm a"}}</td>
+                       <td>{{row.endTime | date:"hh:mm a"}}</td>
+                       
+                       
+                       <!-- <td>{{row.isActive}}</td> -->
+                       <td class="text-end">
+                        <button type="button" class="btn btn-danger btn-circle" (click)="remove(row)"><i class="fa-solid fa-trash"></i></button>
+                         <!-- <button class="button" mat-icon-button color="primary" (click)="getRecords(row)">
+                           <mat-icon>edit</mat-icon>
+                         </button> -->
+                         <!-- <button type="button" class="btn btn-info text-white btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getRecords(row)"><i class="fa-solid fa-user-pen"></i></button> -->
+                        <!-- &nbsp;<button type="button" class="btn btn-danger btn-circle" (click)="deleteTherapist(row)"><i class="fa-solid fa-trash"></i></button> -->
+                         <!-- <button class="button" mat-icon-button color="warn" (click)="deleteBranch(row)">
+                           <mat-icon>delete</mat-icon>
+                         </button> -->
+                     </tr>
+                   </tbody>
+                 </table>
+                 </div>
+                 <br>
+              </div>
+            </div>
+            <div class="row div-back">
+              <div class="col-6">
+                <div class="example-button-container">
+                  <div class="form-check">
+                    <input class="form-check-input input" type="checkbox" formControlName="isAvailable" id="flexCheckChecked" [checked]="isChecked" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="flexCheckChecked" >
+                      Available
+                    </label>
+                  </div>
+                <!-- </button> -->
+              </div>
+              </div>            
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="isEnable" type="button" *ngIf="!isModify" class="btn btn-primary " (click)="saveTherapist()">Save</button>&nbsp;
+              <!-- <button type="button" *ngIf="!isModify" class="btn btn-danger " id="closeModal" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="close()">Close</button>&nbsp; -->
+                              <button type="button"  *ngIf="isModify" class="btn btn-warning " (click)="modifyTherapist()">Modify</button>&nbsp;
+                              <button type="button" *ngIf="isModify" class="btn btn-danger " (click)="Cancel()">Cancel</button>
+            </div>
+
+
+            
+          </form>
+         </div>
+      </div>
+      
+    </div>
+
+  </div>
+
+</div>
+
+<div class="card" style="height: 25px; border:0;background-color: #e4f2f1;;"></div>
+
+  <div class="card div-table" style="border:0;height:70dvh;overflow-y: auto;">
+  <div class="card-body">
+      <div class="alert alert-info table alert" *ngIf="!TherapistDto">
+        No Records Found!!!
+      </div>
+      <div class="table">
+     <table class="table table-hover table-sm" *ngIf="TherapistDto.length>0">
+      <thead class="table-primary">
+        <tr>
+          <th><input type="checkbox" id="countryCheck" name="countryCheck" (change)="check($event)" [checked]="isCheckedMap"></th>
+          <th>#</th>
+          <th>Therapist</th>
+          <th>Branch</th>
+          
+          
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of therapistPageDto | filter:searchTerm; let i = index" [ngClass]="row.isDeleted?'table-danger':''">
+          <td><input type="checkbox" id="countryCheck" name="countryCheck" [checked]="isCheckedMap"></td>
+          <td>{{i+1}}</td>
+          <td>{{row.name}}</td>
+          <td>{{row.branch.name}}</td>
+          
+          <!-- <td>{{row.isActive}}</td> -->
+          <td class="text-end">
+            <!-- <button class="button" mat-icon-button color="primary" (click)="getRecords(row)">
+              <mat-icon>edit</mat-icon>
+            </button> -->
+            <button type="button" class="btn btn-info text-white btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getRecords(row)"><i class="fa-solid fa-user-pen"></i></button>
+           &nbsp;<button type="button" class="btn btn-danger btn-circle" (click)="deleteTherapist(row)"><i class="fa-solid fa-trash"></i></button>
+            <!-- <button class="button" mat-icon-button color="warn" (click)="deleteBranch(row)">
+              <mat-icon>delete</mat-icon>
+            </button> -->
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination  [collectionSize]="TherapistDto.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshPages()">           
+    </ngb-pagination>
+    <select class="form-select" style="width:auto;" [(ngModel)]="pageSize" (ngModelChange)="refreshPages()" >
+      <option [ngValue]="5">5 records per page</option>
+      <option [ngValue]="10">10 items per page</option>
+      <option [ngValue]="15">15 items per page</option>
+      <option [ngValue]="20">20 items per page</option>
+      <option [ngValue]="25">25 items per page</option>
+    </select>
+  </div>
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+

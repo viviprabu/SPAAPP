@@ -1,0 +1,294 @@
+<div class="card">
+    <div class="card-body">
+        <div class="col">
+            <div class="row-2">
+                <div class="card">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio1" id="branch" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="branch" >Choose Branch
+                          </label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio1" id="service" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="service" >Choose Service
+                           
+                        </label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio1" id="therapist" autocomplete="off">
+                        <label class="btn btn-outline-danger" for="therapist">Choose Therapist</label>
+    
+                        <input type="radio" class="btn-check" name="btnradio1" id="finish" autocomplete="off">
+                        <label class="btn btn-outline-success" for="finish">Finish</label>
+                      </div>
+                </div>              
+            </div>
+            <div class="row-10">
+                <div class="card text-center back"><h3>{{headerText}}</h3></div>
+                <form class="form-control back" [formGroup]="bookingFormGroup">
+                    <div class="card back" >
+                        <!-- <div class="card-body"> -->
+                           
+                            <div class="row" *ngIf="showBranchSelection">
+                                    
+                                    <div class="col-3 back"  *ngFor="let row of branchDto; let i=index">
+                                        <!-- <app-branchlist></app-branchlist> -->
+                                        <div class="card text-center">
+                                            <table class="table">
+                                                <thead class="table">
+                                                    <tr>
+                                                        <th style="font-family: 'Segoe UI'; font-weight: bold;font-size:x-large;">
+                                                            {{row.name}}</th>
+                                                        
+                                                    </tr>
+                                                    <div class="card" style="width:100%"></div>
+                                                </thead>
+                                            </table>
+                                            <div class="card-body">
+                                                <p style="font-family: 'Segoe UI';color:green;font-weight: bold;">Branch Timing : <br>{{row.openingTime | date:'hh:mm a'}} - {{row.closingTime | date:'hh:mm a'}}</p>
+                                                <p class="text-center" style="font-family: 'Segoe UI';font-size:medium">The most common spa treatments are massages, manicures/pedicures and facials.
+                                                    also offered such treatments as a body scrub/exfoliation</p>
+                                            </div>
+                                            <div class="card-footer" >
+                                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                                                    <input type="radio" class="btn-check"  name="btnradio" id="btnradio{{row.id}}" autocomplete="off" [value]="row.id" [ngClass]="{'active':radiochecked}" [attr.checked]="row.checked" (change)="getBranch($event,row)">
+                                                    <label *ngIf="!row.checked" class="btn btn-outline-primary" for="btnradio{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;Choose</label>
+                                                    <label *ngIf="row.checked" class="btn btn-outline-success" for="btnradio{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;Selected</label>
+                                                    </div>
+                                                    
+                                            </div>
+                                        </div>
+                                    
+                                       
+                                    </div>
+                                    
+                                       
+                                   
+                                </div>
+                                <div class="card" *ngIf="showService">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4">
+                                              <label style="font-size: large; font-weight: bold;">Date:</label>
+                                              <input readonly type="text" class="form-control"  formControlName="scheduleDate" aria-label="Phone" aria-describedby="addon-wrapping">
+                                            </div>
+                                            <div class="col-4">
+                                              <label style="font-size: large; font-weight: bold;">Start Time:</label>
+                                              <input type="text" class="form-control"  formControlName="startTime" aria-label="Phone" aria-describedby="addon-wrapping">
+                                            </div>
+                                            <div class="col-4">
+                                              <label style="font-size: large; font-weight: bold;">End Time:</label>
+                                              <input readonly type="text" class="form-control"  formControlName="endTime" aria-label="Phone" aria-describedby="addon-wrapping">
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                            <div class="col-6">
+                                                <label style="font-size: large; font-weight: bold;">Required Service</label>
+                                                <select class="form-control" formControlName="serviceId" (change)="getServices($event)"  >
+                                                <option selected disabled>Select Service</option>
+                                                 <option  [value]="serv.id"  *ngFor="let serv of serviceDto" >{{serv.name}}</option>
+                                                 </select>
+                                            </div>
+                                            <div class="col-6">                                 
+                                                <label style="font-size: large; font-weight: bold;"></label><br>
+                                                <label style="font-size: medium; color:red">*Cost (Inclusive of all Tax) : {{price}}&nbsp;{{currencyName}} </label>
+                                                    
+                                                
+                                            </div>
+                                          </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="card" style="height:400px;overflow-y: scroll;" *ngIf="ShowTherapist">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4">
+                                              <label style="font-size: large; font-weight: bold;">Date:</label>
+                                              <input readonly type="text" class="form-control"  formControlName="scheduleDate" aria-label="Phone" aria-describedby="addon-wrapping">
+                                            </div>
+                                            <div class="col-4">
+                                              <label style="font-size: large; font-weight: bold;">Start Time:</label>
+                                              <input type="text" class="form-control"  formControlName="startTime" aria-label="Phone" aria-describedby="addon-wrapping">
+                                            </div>
+                                            <div class="col-4">
+                                              <label style="font-size: large; font-weight: bold;">End Time:</label>
+                                              <input readonly type="text" class="form-control"  formControlName="endTime" aria-label="Phone" aria-describedby="addon-wrapping">
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="card">
+                                            <table class="table" style="font-family: 'Segoe UI';">
+                                                <thead class="table-success">
+                                                  <tr>
+                                                    
+                                                    <th>#</th>
+                                                    <th>Therapist</th>
+                                                    <th>Available Time</th>
+                                                    <th></th>
+                                                    
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr *ngFor="let row of availableTimeDto; let i = index" [ngClass]="row.checked?'table-danger':''">
+                                                    <td> {{i+1}} </td>
+                                                    <td >{{row.name}}</td>
+                                                    <td>{{row.availableTime | date:'hh:mm a'}}</td>
+                                                        <td> 
+                                                          
+                                                          <!-- <button type="button" class="btn btn-outline-primary btn-sm btn-circle">
+                                                            <button type="button" class="btn btn-outline-primary" id="therapistCheck" name="therapistCheck"  (change)="chooseTherapist(row)"></button>
+                                                          </button> -->
+                                                          <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                                                              <input type="radio" class="btn-check"  name="btnradio" id="btnradio{{row.id}}" autocomplete="off" [value]="row.id" [ngClass]="{'active':radiochecked}" [attr.checked]="row.checked" (change)="chooseTherapist($event,row)">
+                                                              <label *ngIf="!row.checked" class="btn btn-outline-primary btn-circle" for="btnradio{{row.id}}"><i class="fa-regular fa-square"></i></label>
+                                                              <label *ngIf="row.checked" class="btn btn-outline-success btn-circle" for="btnradio{{row.id}}"><i class="fa-solid fa-check"></i></label>
+                                                              </div>
+                                                              
+                                                      
+                                                            </td>
+                                                    
+                                                    
+                                                  </tr>
+                                                  <tr>
+                                                    
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                          </div>
+                                      
+                                    </div>
+                                   
+                                  </div>
+                                  
+                                  
+                                    <!-- <div class="card-body back"> -->
+                                      <div class="card"  *ngIf="showFinish"> 
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                  <div class="card">                                            
+                                                    <button  type="button"  class="btn btn-light" style="font-size: large; font-weight: bold;"><i class="fa-solid fa-shop">
+                                                    </i>&nbsp;&nbsp;{{this.branchName}}</button>
+                                                  </div>
+                                                  <br>
+                                                  <br>
+                                                  <div class="row">
+                                                    <div class="col-4">
+                                                      <label style="font-size: large; font-weight: bold;">Date:</label>
+                                                      <input readonly type="text" class="form-control"  formControlName="scheduleDate" aria-label="Phone" aria-describedby="addon-wrapping">
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <label style="font-size: large; font-weight: bold;">Start Time:</label>
+                                                      <input type="text" class="form-control"  formControlName="startTime" aria-label="Phone" aria-describedby="addon-wrapping">
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <label style="font-size: large; font-weight: bold;">End Time:</label>
+                                                      <input readonly type="text" class="form-control"  formControlName="endTime" aria-label="Phone" aria-describedby="addon-wrapping">
+                                                    </div>
+                                                  </div>
+                                                    <br>
+                                                    <div class="row">
+                                                      
+                                                      <div class="col-8">
+                                                              
+                                                          <label  style="font-size: large; font-weight: bold;">Name</label>
+                                                          <input  type="text" class="form-control" formControlName="name"  placeholder="name" aria-label="name" aria-describedby="addon-wrapping">
+                                                          <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','name')">*Name is required</small>
+                                                        
+                                                     
+                                                      </div>
+                                                      <div class="col-4">
+                                                        <br>
+                                                        <!-- <label style="font-size: large; font-weight: bold;">Gender</label> -->
+                                                        <div  class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                                                          <input type="radio" class="btn-check" formControlName="gender" name="gender" id="btnmale" autocomplete="off"  value="Male">
+                                                          <label class="btn btn-outline-primary btn-sm" for="btnmale">Male</label>
+                                                        
+                                                          <input type="radio" class="btn-check" formControlName="gender" name="gender" id="btnfemale"  value="Female" autocomplete="off">
+                                                          <label class="btn btn-outline-primary btn-sm" for="btnfemale">Female</label>
+                                                                        
+                                                        </div>
+                                                       
+                                                        <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','gender')">*Gender is required</small>
+                                                      </div>
+                                                    </div>
+                                                  <label  style="font-size: large; font-weight: bold;">Phone</label>
+                                                  <!-- <input *ngIf="!isHide" type="search" class="form-control"  [(ngModel)]="searchTerm"  formControlName="phone" aria-label="Phone" aria-describedby="addon-wrapping"> -->
+                                                  <input  type="text" class="form-control" formControlName="phone"  aria-label="Phone" aria-describedby="addon-wrapping">
+                                                  <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','phone')">*Phone is required</small>
+                                                  <br>
+                                                  
+                                                  <label style="font-size: large; font-weight: bold;">Required Service</label>
+                                              <select class="form-control" formControlName="serviceId"  >
+                                                <option selected disabled>Select Service</option>
+                                                <option  [value]="serv.id"  *ngFor="let serv of serviceDto" >{{serv.name}}</option>
+                                              </select>
+                                             
+                                                </div>
+                                                <div class="col-6">
+                                                  <div class="card">
+                                                    <button type="button" class="btn btn-light" style="color:green;font-weight: bold;" [ngClass]="outOfWorkingTime?'text-danger':''">Working Time: {{workingTime}}</button>
+                                                  </div>
+                                                  
+                                              <br>
+                                              <br>
+                                             
+                                              <div class="card" style="height:325px;overflow-y: scroll;">
+                                                <table class="table" style="font-family: 'Segoe UI';">
+                                                  <thead class="table-primary">
+                                                    <tr>
+                                                      
+                                                      <th>#</th>
+                                                      <th>Therapist</th>
+                                                      <th>Available Time</th>
+                                                      <th></th>                                              
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr *ngFor="let row of selectedTherapist; let i = index"  >
+                                                      <td> {{i+1}} </td>
+                                                      <td >{{row.name}}</td>
+                                                      <td>{{row.availableTime | date:'hh:mm a'}}</td>
+                                                          <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                              <br>
+                                              <br>
+                                                </div>
+                                              </div>
+                                            <label [ngClass]="{'true':isActive,'false':!isActive}" class="text-center btn-light" style="font-size:x-large; font-family: 'Segoe UI'; font-weight: bold">{{bookingStatus}}</label>
+
+                                        </div>
+                                      
+                                    </div>
+                                  </div>
+                                  
+                            <!-- </div> -->
+                    <!-- </div> -->
+                </form>
+             
+                
+            </div>
+            
+        </div>
+        <div class="card-footer text-end">
+            
+              
+                <button type="button" class="btn btn-danger" (click)="previous()" [disabled]="!showPrevious"><i class="fa-solid fa-less-than"></i><i class="fa-solid fa-less-than"></i>&nbsp;Previous</button>&nbsp;
+              
+                
+                <button type="button" class="btn btn-primary" (click)="next()" [disabled]="!isShow">Next&nbsp;<i class="fa-solid fa-greater-than"></i><i class="fa-solid fa-greater-than"></i></button>&nbsp;
+              
+               
+                <button *ngIf="showSaveButton" type="button" class="btn btn-success" (click)="saveBooking()">Book Now</button>
+
+                
+             
+        </div>
+        </div>
+        
+    </div>

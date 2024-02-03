@@ -1,0 +1,109 @@
+// /* Split the screen into thirds*/
+// .left {
+//   height: 100%;
+//   width: 18%;
+//   position:fixed;
+//   z-index: 1;
+//   top: 0;
+//   margin-left:0;
+//   overflow-x: hidden;
+//   overflow-y: hidden;
+//   border-right: 2px;
+//   // padding-top: 20px;
+// }
+// .right{
+//   height: 100%;
+//   // margin-left: 335px;
+//   // width: 83%;
+//   overflow-x: hidden;
+//   overflow-y: hidden;
+//   // position: fixed;
+// }
+// .left{
+//   height: auto;
+//   overflow-x: hidden;
+//   overflow-y: scroll;
+// position: absolute;
+
+  
+// }
+// .right{
+//  left:0;
+// height:auto;
+
+ 
+// }
+// .div{
+//   background-color: #e4f2f1;
+//   border-color: #e4f2f1;
+//   border:0px;
+  
+// }
+
+
+
+
+// html, body {
+//   height: calc(100% - 7.5px);
+  
+// }
+// as-split-area {
+//   background-color: #e4f2f1;
+// }
+
+
+// .outer{
+//   width:100%;
+//   height:100%;
+//   background-color: #e4f2f1;
+//   border-radius: 0;
+// }
+.panel{
+  height: 100%;
+  box-shadow: 10px 10px 70px rgb(4, 52, 156);
+  border-radius: 0px;
+  margin-top:0;
+  margin-bottom:0;
+}
+.card{
+  height:100%;
+  background-color: #e4f2f1;
+  border-radius: 0;
+  
+  
+}
+.card-body{
+  height:100%;
+}
+.card-header{
+  background-color: #e4f2f1;
+}
+.card-footer{
+  background-color: #e4f2f1;
+}
+.main{
+  height:100%;
+  background-color: #e4f2f1;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  // background-color: blue;
+}
+.left{
+// width:20%;
+ 
+height: 100lvb;
+position: relative;
+
+
+}
+.right{
+  // width:80%;
+  height:100%;
+  
+}
+.top{
+  height:10%;
+}
+.bottom{
+  height:100%;
+}

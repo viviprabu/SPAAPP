@@ -1,0 +1,581 @@
+<div *ngIf="!isModify">
+  <div class="card" style="height:90dvh;">
+    <div class="card-header header text-center">    
+      <h1>Book an Appointment</h1>
+      <h6>Please fill out the appointment form below to make appointment</h6>
+    </div>
+    <div class="card-body" style="overflow-y: auto;">
+      <div class="row">
+        <div class="col-2 input" style="height:100dvh">
+          
+          <div class="card input"  *ngFor="let row of branchDto; let i=index">                        
+            
+                       <!-- <button type="button" class="btn btn-info" style="align-items: center;width:100%;font-family: 'Segoe UI'; font-weight: bold;font-size:x-large;" (click)="getBranchId(row)" > {{row.name}}</button></th> -->
+                       <div class="btn-group" role="group" aria-label="Basic radio toggle button group" [class.error]="isSubmit && bookingFormGroup.hasError('required','branchId')" >
+                         <input type="radio" class="btn-check"  name="btnbranch" id="btnbranch{{row.id}}" autocomplete="off" [value]="row.id" [checked]="row.check" (change)="getBranchId($event,row)">
+                         <label *ngIf="!row.check" class="btn btn-outline-primary" for="btnbranch{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;{{row.name}}</label>
+                         <label *ngIf="row.check" class="btn btn-outline-success" for="btnbranch{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;{{row.name}}</label>
+                         <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','branchId')">*Branch is Required</small>
+                       </div>         <br>       
+                     
+  </div>             
+        </div>
+        <div class="col-10" *ngIf="showContent">
+          <div class="cols">
+            <div class="row-7">
+              <div class="card" >
+                <div class="card-body">             
+                  <form class="form-control back" [formGroup]="bookingFormGroup" (ngSubmit)="saveBooking()">
+                   
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="row">
+                              <!-- <div class="col-9"> -->
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','phone')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="text" class="form-control input" formControlName="phone" (change)="getUserByPhone()" placeholder="phone*" aria-label="phone" aria-describedby="addon-wrapping">                  
+                                  
+                                </div>
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','phone')">*Phone is Required</small>
+                                                
+                             
+                            </div>                                   
+                            <hr>
+                            <div class="row">
+                              
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','scheduleDate')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="date" class="form-control input" formControlName="scheduleDate"  placeholder="scheduleDate*" aria-label="scheduleDate" aria-describedby="addon-wrapping">                  
+                                  
+                                </div>
+                                <!-- <input type="date" class="form-control input" formControlName="scheduleDate"  placeholder="Schedule Date*"> -->
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','scheduleDate')">*Booking Date is Required</small>                     
+                            
+                            </div>                  
+                           
+                            <hr>
+                          
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="row">
+                                  <div class="col-9">
+                                    <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','startTime')">
+                                      <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                      <input type="time"  class="form-control input"  formControlName="startTime"  placeholder="startTime*" aria-label="startTime" aria-describedby="addon-wrapping">                  
+                                      
+                                    </div>
+                                    <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','startTime')">*Start Time is Required</small>
+                                  </div>
+                                  <div class="col-3">
+                                   
+                                    <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#calendarModal"><i class="fa-solid fa-calendar-days"></i></button> -->
+                                    <button type="button" class="btn btn-outline-danger" (click)="openModal(calendarModal1)"><i class="fa-solid fa-calendar-days"></i></button>
+                                  </div>
+                                </div>
+                             
+                                <!-- <input type="time" class="form-control input" formControlName="startTime" step="1800" placeholder="StartTime*"> -->
+                              </div>
+                              <div class="col-6">
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','endTime')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="text" class="form-control input" formControlName="endTime"  placeholder="endTime*" aria-label="endTime" aria-describedby="addon-wrapping">                  
+                         
+                                </div>
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','endTime')">*End Time is Required</small>
+                                <!-- <input type="text" class="form-control input" formControlName="endTime"  placeholder="EndTime*"> -->
+                              </div>
+                            </div>
+                           
+                            
+                            <hr>
+                            
+          
+                            
+                          </div>
+                          <div class="col-6">
+                            <input type="text" class="form-control input" formControlName="name" placeholder="First Name*">    
+                            <!-- <input type="text" class="form-control input" formControlName="phone"  placeholder="Phone*"> -->
+                            <hr>
+                            <div class="row">
+                              <div class="col-9">
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','serviceId')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="text" class="form-control input" formControlName="serviceId"  placeholder="service*" aria-label="serviceId" aria-describedby="addon-wrapping">                  
+                     
+                                </div>
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','serviceId')">*Service is Required</small>
+                                <!-- <input type="text" class="form-control input" formControlName="serviceId"  placeholder="Service*"> -->
+                              </div>
+                              <div class="col-3">
+                                
+                                <div class="card">
+                                  <button type="button" class="btn btn-primary btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-spa"></i>&nbsp;services</button>
+                                </div>
+                              </div>
+                            </div>
+                          
+                            <hr>
+                            <div class="row">
+                             
+                                <!-- <div class="input-group flex-nowrap"  [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')">
+                                  <select class="form-control input" formControlName="therapistId" name="therapistId" (change)="ChooseTherapist($event)">
+                                    <option selected>---Select any Therapist---</option>
+                                    <option [value]="tpr.id"  *ngFor="let tpr of therapistDto"  >{{tpr.name}}</option>
+                                  </select>
+                                  <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
+                                </div> -->
+                                <div class="input-group flex-wrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')" >
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width:100px;background-color: rgb(212, 210, 210);">Therapist</span>&nbsp;                           -->
+                                  <div class="btn-group" role="group"  aria-label="Basic radio toggle button group" *ngFor="let row of therapistDto; let i=index">
+                                    <input type="radio" class="btn-check"  id="btnradio1{{row.id}}" name="therapistId" autocomplete="off" (checked)="row.id" [value]="row.id" (change)="ChooseTherapist($event,row)">&nbsp;
+                                    <label class="btn btn-outline-danger" for="btnradio1{{row.id}}">{{row.name}}</label>                              
+                                   
+                                  </div>
+                                  <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
+                                 
+                                 
+                                </div>
+                               
+                              </div>
+                           
+                              
+                            <hr>
+                            
+                          </div>
+                         
+                        </div>
+                        <div class="card text-end">
+                          <button *ngIf="showSaveButton" type="button" class="btn btn-primary" (click)="openVerifyDetails(verifyDetails)">Book Appointment</button>
+                        </div>
+                        
+                     
+                      </form>
+                      </div>
+            </div>
+            </div>
+            <div class="row-5">
+              <div class="card" style="font-family: 'Segoe UI'; height:69dvh;overflow-y: auto;">
+                <table class="table  table-striped">
+                  <thead class="table">
+                    <tr>                         
+                      <th>#</th>
+                      <th>Therapist</th>
+                      <th>Available Time</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of availableTimeDto let i = index"  (click)="rowSelected(row)">
+                      <td> {{i+1}} </td>
+                      <td >{{row.name}}</td>
+                      <td>{{row.availableTime | date:'hh:mm a'}}</td>
+                          <td> 
+                           
+                              <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                                <input type="radio" class="btn-check"  name="btntherapist" id="btntherapist{{row.id}}" autocomplete="off" [value]="row.id" [checked]="row.checked" (change)="selectTherapist($event,row)">
+                                <label *ngIf="!row.checked" class="btn btn-outline-danger btn-sm" for="btntherapist{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;Choose</label>
+                                <label *ngIf="row.checked" class="btn btn-outline-success btn-sm" for="btntherapist{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;Selected</label>
+                                </div>
+                            
+                              </td>
+                      
+                      
+                    </tr>
+                    <tr>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- <div class="card-footer" style="height:25px">
+   <button type="button" class="btn btn-outline-success" (click)="saveBooking()">Book Appointment</button>
+    </div> -->
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLable"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLable"><span style="font-size: 25px;font-weight: 500;">Choose any Service</span></p>        
+        <button type="button" class="btn btn-close" id="closeModal" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="close" style="position: absolute; right:0;margin-right: 2px;"></button>      
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card" style="height: 400px; overflow-y: auto;">
+            <table class="table table-striped">
+                <thead class="table">
+        
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of serviceDto; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{currencyCode}}&nbsp;&nbsp;{{row.price}}</td>
+                        
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                                <input type="radio" class="btn-check"  name="btnservice" id="btnservice{{row.id}}" autocomplete="off" [value]="row.id" [attr.checked]="row.ischecked" (change)="changeService($event,row)">
+                                <label *ngIf="!row.ischecked" class="btn btn-outline-danger btn-sm" for="btnservice{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;Choose</label>
+                                <label *ngIf="row.ischecked" class="btn btn-outline-success btn-sm" for="btnservice{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;Selected</label>
+                                </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-end">
+          <button type="button" class="btn btn-danger" id="closebutton" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="confirmSelectedService()">Confirm</button>
+        </div>
+         </div>
+      </div>
+    
+    </div>
+
+  </div>
+
+</div>
+<ng-template  #calendarModal1 >
+  <div class="card">
+    
+      <div class="card-header text-center" style="height:50px">
+        <h3>Calendar</h3>
+     
+        
+      </div>
+      
+        <div class="card" >
+            
+            <full-calendar class="fc-event-inner"
+            [options]="calendarOptions" 
+            [events]="eventsPromise | async"
+            [deepChangeDetection] = true
+            (dateClick)="selectDate($event)"
+            
+            
+                    >        
+            <ng-template #eventContent let-arg>
+                <b>{{arg.event.title}}</b>
+            </ng-template>
+        
+            
+        
+        </full-calendar>
+        </div>
+        
+    <div class="card-footer text-end">
+      <div class="card-body">
+        <button type="button" class="btn btn-success" id="closebutton" (click)="confirmSelectedSlot()">Update & Close</button>
+      
+      </div>
+      
+  
+    </div>
+  </div>
+
+   
+      
+    
+  
+</ng-template>
+
+<ng-template #verifyDetails>
+  <div class="card">
+    <div class="card-header text-center">
+      <h3 style="font-family: 'Segoe UI';">Verify Details</h3>
+    </div>
+     <div class="card-body" style="font-family: 'Segoe UI';font-size:medium">
+      <table class="table table-striped"> 
+        <thead class="table">
+          <tr></tr>
+         </thead>
+         <tbody>
+          <tr>
+            <td> 
+              <div class="input-group flex-nowrap" >
+              <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Schedule Date</span>&nbsp;&nbsp;&nbsp;
+              {{sDate | date: "dd-MM-yyyy"}}
+            </div>
+          </td>
+          </tr>
+          <tr>
+            <td> <div class="input-group flex-nowrap" >
+              <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Schedule Time</span>&nbsp;&nbsp;&nbsp;
+              {{time1 }} - {{time2}}
+            </div></td>
+          </tr>
+          <tr>
+            <td> <div class="input-group flex-nowrap" >
+              <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Service</span>&nbsp;&nbsp;&nbsp;
+              {{service}}
+            </div></td>
+          </tr>
+          <tr>
+            <td> <div class="input-group flex-nowrap" >
+              <span class="input-group-text" id="addon-wrapping" style="width: 150px;background-color: rgb(212, 210, 210);">Therapist</span>&nbsp;&nbsp;&nbsp;
+              {{therapist}}
+            </div></td>
+          </tr>
+          
+         
+          
+         </tbody>
+      </table>
+      
+    </div>
+    <div class="card-footer text-end">
+                        <button type="button" class="btn btn-primary" (click)="saveBooking()">Confirm Booking</button>&nbsp;
+                        <button type="button" class="btn btn-danger" (click)="cancelBooking()">Cancel Booking</button>
+    </div>
+  </div>
+</ng-template>
+<!-- <div class="modal fade" id="therapistModal" tabindex="1" aria-labelledby="therapistModalLable"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+          <div class="modal-body" >
+        <div class="card">
+          <table class="table  table-striped" style="font-family: 'Segoe UI';">
+            <thead class="table">
+              <tr>                         
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of timeDto let i = index"  (click)="rowSelected(row)">
+                <td> {{i+1}} </td>
+                <td >{{row.name}}</td>
+                <td>{{row.availableTime | date:'hh:mm a'}}</td>
+                    <td> 
+                      
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                          <input type="radio" class="btn-check"  name="btntherapist" id="btntherapist{{row.therapistId}}" autocomplete="off" [value]="row.therapistId" [attr.checked]="row.checked" (change)="selectTherapist($event,row)">
+                          <label *ngIf="!row.checked" class="btn btn-outline-danger" for="btntherapist{{row.therapistId}}"><i class="fa-regular fa-square"></i>&nbsp;Choose</label>
+                          <label *ngIf="row.checked" class="btn btn-outline-success" for="btntherapist{{row.therapistId}}"><i class="fa-solid fa-check"></i>&nbsp;Selected</label>
+                          </div>
+                      
+                        </td>
+                
+                
+              </tr>
+              <tr>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+         
+      </div>
+    
+    </div>
+
+  </div>
+
+</div> -->
+
+
+
+<div *ngIf="isModify">
+  <div class="card" style="height:90dvh;">
+    <div class="card-header header text-center">    
+      <h1>Modify Booking</h1>
+      <h6>Please update required fields to modify your appointment</h6>
+    </div>
+    <div class="card-body" style="overflow-y: auto;">
+      <div class="row">
+        <div class="col-2 input" style="height:100dvh">
+          
+          <div class="card input" *ngFor="let row of selectedbranchDto; let i=index">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" [class.error]="isSubmit && bookingFormGroup.hasError('required','branchId')" >
+              <input type="radio" class="btn-check"  name="btnbranch" id="btnbranch{{row.id}}" autocomplete="off" [value]="row.id" [checked]="row.id" (change)="getBranchId($event,row)">
+              <!-- <label *ngIf="!row.check" class="btn btn-outline-primary" for="btnbranch{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;{{row.name}}</label> -->
+              <label  class="btn btn-outline-success" for="btnbranch{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;{{row.name}}</label>
+              <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','branchId')">*Branch is Required</small>
+            </div>   
+                       <!-- <button type="button" class="btn btn-info" style="align-items: center;width:100%;font-family: 'Segoe UI'; font-weight: bold;font-size:x-large;" (click)="getBranchId(row)" > {{row.name}}</button></th> -->
+                       <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                         <button type="button" class="btn"  name="btnbranch" id="btnbranch" autocomplete="off">
+                          <label class="btn btn-success" for="btnbranch"><i class="fa-solid fa-check"></i>&nbsp;{{this.branchName}}</label>
+                                                  
+                         </button>
+                       </div> -->
+                       <br>
+                     
+  </div>             
+        </div>
+        <div class="col-10">
+          <div class="cols">
+            <div class="row-7">
+              <div class="card" >
+                <div class="card-body">             
+                  <form class="form-control back" [formGroup]="bookingFormGroup" (ngSubmit)="saveBooking()">
+                   
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="row">
+                              <!-- <div class="col-9"> -->
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','phone')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="text" class="form-control input" formControlName="phone" (change)="getUserByPhone()" placeholder="phone*" aria-label="phone" aria-describedby="addon-wrapping">                  
+                                  
+                                </div>
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','phone')">*Phone is Required</small>
+                                                
+                             
+                            </div>                                   
+                            <hr>
+                            <div class="row">
+                              
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','scheduleDate')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="date" class="form-control input" formControlName="scheduleDate"  placeholder="scheduleDate*" aria-label="scheduleDate" aria-describedby="addon-wrapping">                  
+                                  
+                                </div>
+                                <!-- <input type="date" class="form-control input" formControlName="scheduleDate"  placeholder="Schedule Date*"> -->
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','scheduleDate')">*Booking Date is Required</small>                     
+                            
+                            </div>                  
+                           
+                            <hr>
+                          
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="row">
+                                  <div class="col-9">
+                                    <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','startTime')">
+                                      <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                      <input type="time"  class="form-control input"  formControlName="startTime"  placeholder="startTime*" aria-label="startTime" aria-describedby="addon-wrapping">                  
+                                      
+                                    </div>
+                                    <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','startTime')">*Start Time is Required</small>
+                                  </div>
+                                  <div class="col-3">
+                                   
+                                    <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#calendarModal"><i class="fa-solid fa-calendar-days"></i></button> -->
+                                    <button type="button" class="btn btn-outline-danger" (click)="openModal(calendarModal1)"><i class="fa-solid fa-calendar-days"></i></button>
+                                  </div>
+                                </div>
+                             
+                                <!-- <input type="time" class="form-control input" formControlName="startTime" step="1800" placeholder="StartTime*"> -->
+                              </div>
+                              <div class="col-6">
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','endTime')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="text" class="form-control input" formControlName="endTime"  placeholder="endTime*" aria-label="endTime" aria-describedby="addon-wrapping">                  
+                         
+                                </div>
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','endTime')">*End Time is Required</small>
+                                <!-- <input type="text" class="form-control input" formControlName="endTime"  placeholder="EndTime*"> -->
+                              </div>
+                            </div>
+                           
+                            
+                            <hr>
+                            
+          
+                            
+                          </div>
+                          <div class="col-6">
+                            <input type="text" class="form-control input" formControlName="name" placeholder="First Name*">    
+                            <!-- <input type="text" class="form-control input" formControlName="phone"  placeholder="Phone*"> -->
+                            <hr>
+                            <div class="row">
+                              <div class="col-9">
+                                <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','serviceId')">
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Name</span> -->
+                                  <input type="text" class="form-control input" formControlName="serviceId"  placeholder="service*" aria-label="serviceId" aria-describedby="addon-wrapping">                  
+                     
+                                </div>
+                                <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','serviceId')">*Service is Required</small>
+                                <!-- <input type="text" class="form-control input" formControlName="serviceId"  placeholder="Service*"> -->
+                              </div>
+                              <div class="col-3">
+                                
+                                <div class="card">
+                                  <button type="button" class="btn btn-primary btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-spa"></i>&nbsp;services</button>
+                                </div>
+                              </div>
+                            </div>
+                          
+                            <hr>
+                            <div class="row">
+                              
+                                <div class="input-group flex-wrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')" >
+                                  <!-- <span class="input-group-text" id="addon-wrapping" style="width:100px;background-color: rgb(212, 210, 210);">Therapist</span>&nbsp;                           -->
+                                  <div class="btn-group" role="group" aria-label="Basic radio toggle button group" *ngFor="let row of selectedTherapistDto; let i=index">
+                                    <input type="radio" class="btn-check" formControlName="therapistId" name="therapistId" id="btnradio1{{row.id}}" autocomplete="off" (checked)="row.id" [value]="row.id" (change)="ChooseTherapist($event,row)">&nbsp;
+                                    <label class="btn btn-outline-danger" for="btnradio1{{row.id}}">{{row.name}}</label>      
+                                  </div>
+                                  <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
+                              
+                              </div>
+                            
+                                <!-- <div class="input-group flex-nowrap" [class.error]="isSubmit && bookingFormGroup.hasError('required','therapistId')">
+                                  <select class="form-control input" formControlName="therapistId" name="therapistId" (change)="ChooseTherapist($event)"  >
+                                    <option [value]="tpr.id"  *ngFor="let tpr of therapistDto" >{{tpr.name}}</option>
+                                  </select>  
+                                  <small class="text-danger small" *ngIf="isSubmit && bookingFormGroup.hasError('required','therapistId')">*Therapist is Required</small>
+                                </div> -->
+                              </div>
+                              <hr>
+                            </div>
+                          </div>
+                        <div class="card text-end">
+                          <button *ngIf="!showSaveButton" type="button" class="btn btn-warning" (click)="modifyBooking()">Modify Booking</button>
+                        </div>
+                      </form>
+                      </div>
+            </div>
+            </div>
+            <div class="row-5">
+              <div class="card" style="font-family: 'Segoe UI'; height:69dvh;overflow-y: auto;">
+                <table class="table  table-striped">
+                  <thead class="table">
+                    <tr>                         
+                      <th>#</th>
+                      <th>Therapist</th>
+                      <th>Available Time</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of availableTimeDto let i = index"  (click)="rowSelected(row)">
+                      <td> {{i+1}} </td>
+                      <td >{{row.name}}</td>
+                      <td>{{row.availableTime | date:'hh:mm a'}}</td>
+                          <td> 
+                           
+                              <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                                <input type="radio" class="btn-check"  name="btntherapist" id="btntherapist{{row.id}}" autocomplete="off" [value]="row.id" [checked]="row.checked" (change)="selectTherapist($event,row)">
+                                <label *ngIf="!row.checked" class="btn btn-outline-danger btn-sm" for="btntherapist{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;Choose</label>
+                                <label *ngIf="row.checked" class="btn btn-outline-success btn-sm" for="btntherapist{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;Selected</label>
+                                </div>
+                            
+                              </td>
+                      
+                      
+                    </tr>
+                    <tr>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- <div class="card-footer" style="height:25px">
+   <button type="button" class="btn btn-outline-success" (click)="saveBooking()">Book Appointment</button>
+    </div> -->
+  </div>
+  
+</div>

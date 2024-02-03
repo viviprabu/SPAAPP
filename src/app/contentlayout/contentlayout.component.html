@@ -1,0 +1,110 @@
+<!-- <div class="main">
+<div class="left" *ngIf="!isHide">
+  <app-sidebar></app-sidebar>
+</div>
+<div class="right" [style.margin-left.px]="margin" [style.width.%]="width">
+  
+    <div class="card-header">
+      <app-navbarright></app-navbarright>
+    </div>
+    <div class="card-body">
+      <app-homepage ></app-homepage>   
+    </div>
+    <div class="card-footer">
+      <app-statusbar></app-statusbar>
+    </div>
+  </div>
+</div> -->
+      
+<!-- <as-split
+  [disabled]="isSplitDisabled"
+  [gutterSize]="7.5"
+  [direction]="pageSplitDirection"
+  unit="percent"
+>
+  <as-split-area [size]="headerSizeInPercent"> <app-navbarright></app-navbarright></as-split-area>
+  <as-split-area [size]="bodySizeInPercent"> -->
+  
+  
+  
+  
+    <!-- ---user Angular Split ------ -->
+     <!-- <as-split  
+      [disabled]="isSplitDisabled"
+      [gutterSize]="7.5"
+      [direction]="contentSplitDirection"
+      
+      unit="percent"   >   
+      <as-split-area  [size]="leftChildSizeInPercent">
+        <app-sidebar ></app-sidebar>
+      </as-split-area>
+    
+      <as-split-area [size]="rightChildSizeInPercent" >
+        <as-split
+        [disabled]="isSplitDisabled"
+        [gutterSize]="7.5"
+        [direction]="pageSplitDirection"
+        unit="percent">
+        <app-navbarright></app-navbarright>
+        <as-split-area [size]="bodySizeInPercent">
+          
+        <app-homepage></app-homepage>
+        <div class="card-footer text-end div">
+          <a style="font-family: 'Segoe UI';font-size: smaller;">Developed by vps enterprises © 2023 - v1.0.0 </a>
+        </div> 
+        </as-split-area>        
+      </as-split>        
+      </as-split-area>
+    </as-split>  -->
+
+
+      
+        <div class="main">
+          <div class="card-body">
+            <div class="row">
+              
+                  <div class="left" [style.width.%]="margin">
+                    <div class="panel">
+                      <div class="panel-body">
+                    <app-sidebar *ngIf="!isHide"></app-sidebar>
+                    <app-sidebar-minimized *ngIf="isHide"></app-sidebar-minimized>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="right" [style.width.%]="width">
+                <div class="card">
+                  <div class="card-header">
+                    <app-navbarright></app-navbarright>
+                  </div>
+                  <div class="card-body" style="height:100svb;">
+                    <app-homepage></app-homepage>
+                  </div> 
+                 
+                        
+                </div>
+                       
+
+              </div>
+            </div>
+            
+          </div>
+            
+          
+        </div>
+        <div class="card-footer text-end">
+          <a style="font-family: 'Segoe UI';font-size: smaller; margin-right: 25px;">Copy rights-VPS © 2023 - v1.0.0 </a>
+        </div>
+       
+       
+     
+      
+    
+    
+
+
+
+
+    
+
+

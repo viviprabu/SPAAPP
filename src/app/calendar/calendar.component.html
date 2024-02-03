@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card main" style="height:90%; width:100%">
+        
+        <full-calendar class="fc-event-inner"
+        [options]="calendarOptions" 
+        [events]="eventsPromise | async"
+        [deepChangeDetection] = true
+        (dateClick)="handleDateClick($event)"
+        
+                >        
+        <ng-template #eventContent let-arg>
+            <b>{{arg.event.title}}</b>
+        </ng-template>
+    
+        
+    
+    </full-calendar>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-danger" id="closebutton" (click)="confirmSelectedSlot()">Confirm</button>
+    </div>
+</div>

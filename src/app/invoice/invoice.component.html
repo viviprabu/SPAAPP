@@ -1,0 +1,146 @@
+<div class="card" >
+  <div class="card-header text-end">
+    <button type="button" class="btn-close button" (click)="close()"></button>    
+  </div>
+  <div class="card"  id="invoicePrint" #invoicePrint>
+  <div class="card h1">
+    <p style="font-family: 'Segoe UI'; font-weight: bolder;font-size: x-large;">{{companyName}}</p>
+    <P class="div-invoice">PROFORMA INVOICE</P>
+   </div>
+  
+    
+      <form class="form-control" [formGroup]="invFormGroup">
+        <!-- <div class="container" id="invoicePrint" #invoicePrint> -->
+        <div class="row">        
+            <div class="col-6">
+              <div class="input-group flex-nowrap">
+                 <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Branch</span>
+                 <input readonly type="text" class="form-control"  formControlName="branchId"   >
+              </div>
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Client Name</span>
+                <input readonly type="text" class="form-control"  formControlName="userId"   >
+             </div>
+             <div class="input-group flex-nowrap">
+              <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Phone</span>
+              <input readonly type="text" class="form-control"  formControlName="phone"    >
+           </div>
+           <div class="input-group flex-nowrap">
+            <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Room No.</span>
+            <input readonly type="text" class="form-control"  formControlName="roomNumber"   >
+         </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Invoice No.</span>
+              <input readonly type="text" class="form-control"  formControlName="invoiceNumber"   >
+           </div>
+           <div class="input-group flex-nowrap">
+            <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Invoice Date</span>
+            <input readonly type="text" class="form-control"  formControlName="tdate"   >
+         </div>
+         <div class="input-group flex-nowrap">
+          <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Payment</span>
+          <input readonly type="text" class="form-control"  formControlName="paymentId"   >
+       </div>
+       <div class="input-group flex-nowrap">
+        <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Pay Terms</span>
+        <input readonly type="text" class="form-control"  formControlName="paidTerms"   >
+      </div>
+          </div>
+        </div>      
+        <div class="card" style="height:10px"></div>
+        <div class="card">
+          <table class="table table">
+            <thead class="table-primary">
+              <tr>
+                <th>#</th>
+                <th style="width: 400px;">Service</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let row of invoiceDto; let i=index;" >
+              <td>{{i+1}}</td>
+              <td>{{row.service.name}}</td>
+              <td>{{row.qty}}</td>
+              <td>{{row.price}}</td>
+              <td>{{row.totalCost}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-4">
+    
+          </div>
+          <div class="col-4">
+    
+          </div>
+          <div class="col-4">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text span" id="addon-wrapping" style="width: 100px;background-color: rgb(212, 210, 210);">Total Cost</span>
+              <input readonly type="text" class="form-control"  formControlName="totalCost" >
+            </div>
+          </div>
+        </div>
+      
+        <div class="card" style="height:20px"></div>
+        <div class="row">
+          <div class="col-6">
+           <table class="table" style="border: 2px;" >
+            <thead class="table-primary">
+              <tr>
+                <th>Payment Terms</th>
+    
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bank Name</td>
+              </tr>
+              <tr>
+                <td>Pay Type</td>
+              </tr>
+            </tbody>
+           </table>
+          </div>
+          <div class="col-6">
+            <table class="table" style="border: 2px;" >
+              <thead class="table-primary">
+                <tr>
+                  <th>Authorized Signatory</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr style="height: 36px;border:hidden">
+                  <td></td>
+                </tr> -->
+                <tr style="height: 72px;">
+                  <td></td>
+                </tr>
+              </tbody>
+             </table>
+          </div>
+        </div>
+      
+      <!-- </div> -->
+      
+        
+      </form>
+      
+  </div>
+  </div>
+  <div class="card-footer text-center">
+    <button class="btn btn-secondary" (click)="printInvoice()">Print Invoice</button>
+  </div>
+
+
+ 
+
+
+
+
+

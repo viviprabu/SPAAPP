@@ -1,0 +1,52 @@
+
+    
+    <div class="card">
+        <div class="card-body text-center">
+            <h3>
+              SPA AND WELLNESS</h3>
+            <hr>
+            <div class="card" style="height:200px; border-radius: 15px;">
+                <img class="image" height="200px" src="https://png.pngtree.com/thumb_back/fh260/background/20230407/pngtree-beautiful-spa-setting-banner-or-template-with-towels-photo-image_2303495.jpg">
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="card" style="height:420px;overflow-y: auto;">
+        <table class="table table-striped">
+            <thead class="table">
+    
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of serviceDto; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{row.name}}</td>
+                    <td>{{currencyCode}}&nbsp;&nbsp;{{row.price}}</td>
+                    
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                            <input type="radio" class="btn-check"  name="btnradio" id="btnradio{{row.id}}" autocomplete="off" [value]="row.id" [attr.checked]="row.checked" (change)="chooseService($event,row)">
+                            <label *ngIf="!row.checked" class="btn btn-outline-danger btn-circle" for="btnradio{{row.id}}"><i class="fa-regular fa-square"></i>&nbsp;Choose</label>
+                            <label *ngIf="row.checked" class="btn btn-outline-success btn-circle" for="btnradio{{row.id}}"><i class="fa-solid fa-check"></i>&nbsp;Selected</label>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-5">
+                <span style="color:red; font-family: 'Segoe UI';font-size: medium;">*Choose any service and continue your booking</span>
+            </div>
+            <div class="col-7 text-left">
+                <button  type="button" class="btn btn-outline-success"   (click)="showBooking()" [disabled]="!showBookingBtn">Book Now</button>
+            </div>
+        </div>
+       
+       
+        
+
+    </div>
+

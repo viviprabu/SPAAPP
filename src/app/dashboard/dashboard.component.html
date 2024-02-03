@@ -1,0 +1,73 @@
+
+  <!-- <div class="card">
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Dashboard</a>
+    <div>
+      <h4>Hello {{fullName}}</h4>
+    </div>
+  </div>
+</nav>
+</div> -->
+<div class="row">
+<div class="col-3">
+
+</div>
+<div class="col-3">
+
+</div>
+<div class="col-3">
+
+</div>
+<div class="col-3">
+
+</div>
+</div>
+
+<div class="card" style="border:0;height: 100dvh;overflow-y: auto;">
+  <div class="card" style="border:0">
+    <div class="card-body" >
+      <div class="row">
+        <div class="col-6" #containerRef>
+          <ngx-charts-bar-vertical
+          [view]="[containerRef.offsetWidth,400]"
+          [results]="dashData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+        </div>
+        <div class="col-6">
+          <ngx-charts-bar-vertical
+          [view]="[containerRef.offsetWidth,400]"
+          [results]="dashData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+        </div>
+        </div>
+      </div>
+
+
+          </div>
+</div>
+
+
+
+
+
+
+
